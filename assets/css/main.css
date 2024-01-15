@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .menu-bg {
+    @apply my-2 mx-2 py-7 px-10 shadow-lg hover:shadow-xl rounded-lg justify-between;
+  }
+}
