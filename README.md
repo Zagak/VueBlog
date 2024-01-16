@@ -1,4 +1,5 @@
 npm run dev -- -o
+
 npx nuxi dev --dotenv .env.local
 
 # Nuxt 3 Minimal Starter
