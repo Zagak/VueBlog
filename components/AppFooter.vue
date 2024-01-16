@@ -6,7 +6,7 @@
       <p class="max-w-80 text-stone-500">Step into Freedom: Unleash Your Sole with Barefoot Bliss!</p>
     </div>
     <nav class="my-auto mr-10 space-y-2 mt-10 sm:mt-0">
-      <p class="font-bold">Privacy</p>
+      <p class="font-extrabold">Privacy</p>
       <NuxtLink class="hover:underline font-semibold block" v-for="item in menuItems" :to="item.path" :key="item.path">{{
         item.name }}</NuxtLink>
     </nav>
