@@ -6,17 +6,22 @@
 import { createClient } from 'contentful';
 import Home from '~/pages/Home.vue'
 
-const config = useRuntimeConfig()
+import { usePostsStore } from '../store/usePostsStore';
 
+const config = useRuntimeConfig()
 const contentfulClient = createClient({
   space: config.public.CONTENTFUL_SPACE_ID,
   accessToken: config.public.CONTENTFUL_ACCES_KEY,
 })
 
-const res = await contentfulClient.getEntries({ content_type: 'blogPost' })
+const store = usePostsStore()
 
-console.log(res.items)
+await store.fetchPosts(contentfulClient)
+console.log(toRaw(store.posts))
 
+console.log(store.getPosts)
+
+console.log(store.getGuidesPosts)
 
 
 </script>
