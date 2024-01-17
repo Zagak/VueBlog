@@ -1,3 +1,7 @@
+npm run dev -- -o
+
+npx nuxi dev --dotenv .env.local
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
