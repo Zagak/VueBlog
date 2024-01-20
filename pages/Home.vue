@@ -8,8 +8,10 @@
           the world of shoes that embrace your natural stride, where knowledge meets comfort, all at your fingertips.
         </p>
       </div>
-      <div class="overflow-hidden rounded-3xl my-20 mx-60">
-        <NuxtPicture src="/bsh-1.webp" />
+      <div class="mx-20">
+        <div class="my-20 mx-auto sm:max-w-screen-2xl overflow-hidden rounded-3xl">
+          <NuxtPicture src="/bsh-1.webp" />
+        </div>
       </div>
     </section>
     <section class="max-w-full px-20 py-20 bg-secondary">
@@ -23,7 +25,7 @@
         </div>
       </div>
     </section>
-    <section class="sm:max-w-screen-2xl mx-auto px-20 pt-20 ">
+    <section class="sm:max-w-screen-2xl mx-auto px-20 pt-20">
       <Introduction title="An array of resources to help you get started"
         description="Embark on a transformative journey to freedom, where empowerment guides your every step into a world of boundless liberation." />
       <ShortInformation title="Guides" image="/bsh-2.webp"
@@ -31,11 +33,12 @@
       <ShortInformation title="Reviews" image="/bsh-3.webp" image-first
         :checks="['Be aware of what to consider when choosing your pairs.', 'Made an informative decision.', 'Find the best shoes that suits your needs.']" />
     </section>
+    <ShowPosts class="sm:max-w-screen-2xl mx-auto px-20 pt-20" title="Last guides and reviews" category=""
+      :number-of-elements="2" />
   </div>
 </template>
 
 <script lang="ts" setup>
-
 const features = [
   { "title": "Foot Health", "description": "Experience a footwear revolution that prioritizes foot health, promoting natural movement and minimizing the risk of common foot problems." },
   { "title": "Enhanced Balance and Stability", "description": "Step confidently with enhanced balance and stability with optimize proprioception for a sensory-rich experience and surefooted confidence." },
@@ -44,6 +47,7 @@ const features = [
   { "title": "Optimal Posture & Alignment", "description": "Improve posture and alignment effortlessly as minimalist shoes encourage a natural gait, allowing your body to move the way it was designed." },
   { "title": "Stylish Performance Wear", "description": "Merge style with performance, designed not just for function but to complement your individual taste and elevate your fashion-forward, active lifestyle." }
 ]
+
 </script>
 
 <style></style>

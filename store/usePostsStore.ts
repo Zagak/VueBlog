@@ -1,29 +1,37 @@
 import { defineStore } from 'pinia'
-import type { Entry, EntrySkeletonType, ContentfulClientApi } from 'contentful';
-
+import type { Entry, ContentfulClientApi } from 'contentful';
+import type { PostSkeleton } from '~/types/type';
 
 export const usePostsStore = defineStore('posts', () => {
-  const posts: Ref<Entry<EntrySkeletonType, undefined, string>[]> = ref([])
+  const posts: Entry<PostSkeleton>[] = []
 
   const fetchPosts = async (client: ContentfulClientApi<undefined>) => {
-    const res = await client.getEntries({ content_type: 'blogPost' })
-    posts.value = res.items
+    if (posts.length !== 0) return
+
+    const res = await client.getEntries<PostSkeleton>({ content_type: 'blogPost' })
+    res.items.sort((a, b) => {
+      const dateA = new Date(a.fields.dateOfPosting).getTime();
+      const dateB = new Date(b.fields.dateOfPosting).getTime();
+
+      return dateB - dateA;
+    });
+
+    res.items.forEach(post => {
+      posts.push(post)
+    })
   }
 
-  const getPosts = computed(() => toRaw(posts.value))
-
   const getByCategory = ((category: string) =>
-    toRaw(posts.value).filter((post) => post.fields.category?.fields.name === category)
+    posts.filter((post) => post.fields.category.fields.name === category)
   )
 
   const getGuidesPosts = computed(() =>
     getByCategory("Guides")
-    //posts.value.filter((post) => post.fields.category.fields.name === "Guides")
   )
 
-  const emptyPosts = () => {
-    posts.value = []
-  }
+  const getReviewsPosts = computed(() =>
+    getByCategory("Reviews")
+  )
 
-  return { posts, fetchPosts, emptyPosts, getPosts, getGuidesPosts }
+  return { posts, fetchPosts, getGuidesPosts, getReviewsPosts }
 })
