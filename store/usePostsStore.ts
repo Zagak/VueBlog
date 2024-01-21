@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { Entry, ContentfulClientApi } from 'contentful';
 import type { PostSkeleton } from '~/types/type';
+import { PostCategory } from '~/types/enum';
 
 export const usePostsStore = defineStore('posts', () => {
   const posts: Entry<PostSkeleton>[] = []
@@ -22,15 +23,15 @@ export const usePostsStore = defineStore('posts', () => {
   }
 
   const getByCategory = ((category: string) =>
-    posts.filter((post) => post.fields.category.fields.name === category)
+    posts.filter((post) => post.fields.category === category)
   )
 
   const getGuidesPosts = computed(() =>
-    getByCategory("Guides")
+    getByCategory(PostCategory.Guides)
   )
 
   const getReviewsPosts = computed(() =>
-    getByCategory("Reviews")
+    getByCategory(PostCategory.Reviews)
   )
 
   return { posts, fetchPosts, getGuidesPosts, getReviewsPosts }

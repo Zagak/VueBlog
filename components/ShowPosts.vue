@@ -4,18 +4,24 @@
     <ul>
       <li v-for="post in pagesPosts" :key="post.sys.id">
         <div class="text-left py-5 sm:flex border-t-2 border-black">
-          <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="post.fields.slug">{{ post.fields.title }}
+          <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="'/posts/' + post.fields.slug">{{
+            post.fields.title
+          }}
           </NuxtLink>
           <p class=" text-left sm:w-1/4 sm:ml-10 mt-5 sm:mt-0">{{ formatDate(post.fields.dateOfPosting.toString()) }} -
-            by <b>{{ post.fields.author }}</b> in <b>{{ post.fields.category.fields.name }}</b></p>
+            by <b>{{ post.fields.author }}</b> in <b>{{ post.fields.category }}</b></p>
         </div>
       </li>
     </ul>
-    <div class="flex">
-      <p v-for="number in range(1, pages)" :key="number" class="mr-5 text-xl hover:underline hover:cursor-pointer"
-        @click="selectPage(number)">
-        {{ number }}
-      </p>
+    <div class="flex justify-between text-xl">
+      <button @click="selectPage(selectedPage - 1)" class="before:content-['\2190'] hover:underline">Prev</button>
+      <div class="flex">
+        <p v-for="number in range(1, pages)" :key="number" :class="{ 'font-bold': number === selectedPage }"
+          class="mx-2 hover:underline hover:cursor-pointer" @click="selectPage(number)">
+          {{ number }}
+        </p>
+      </div>
+      <button @click="selectPage(selectedPage + 1)" class="after:content-['\2192'] hover:underline">Next</button>
     </div>
   </div>
 </template>
@@ -24,6 +30,7 @@
 import { usePostsStore } from "~/store/usePostsStore"
 import type { Entry } from 'contentful';
 import type { PostSkeleton } from '~/types/type';
+import { PostCategory } from "~/types/enum";
 
 const props = defineProps({
   title: String,
@@ -39,8 +46,8 @@ let posts: Entry<PostSkeleton>[];
 let pages: number = 1;
 let selectedPage = 1;
 
-if (props.category === "guides") posts = store.getGuidesPosts
-else if (props.category === "reviews") posts = store.getReviewsPosts
+if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
+else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
 else posts = store.posts
 
 pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
@@ -48,10 +55,10 @@ pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 const pagesPosts = ref(posts.slice((props.numberOfElements * (selectedPage - 1)), (props.numberOfElements * selectedPage)))
 
 const selectPage = (pageNumber: number) => {
+  if (pageNumber < 0 || pageNumber > pages) return
+
   selectedPage = pageNumber
   pagesPosts.value = posts.slice((props.numberOfElements * (selectedPage - 1)), (props.numberOfElements * selectedPage))
-  console.log(pageNumber)
-  console.log(pagesPosts.value)
 }
 
 const formatDate = (date: string): string => {
