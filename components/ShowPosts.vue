@@ -1,6 +1,5 @@
 <template>
   <div class="mx-20">
-    <h1 class="font-normal text-3xl mb-10 text-left">{{ props.title }}</h1>
     <ul>
       <li v-for="post in pagesPosts" :key="post.sys.id">
         <div class="text-left py-5 sm:flex border-t-2 border-black">
@@ -8,8 +7,12 @@
             post.fields.title
           }}
           </NuxtLink>
-          <p class=" text-left sm:w-1/4 sm:ml-10 mt-5 sm:mt-0">{{ formatDate(post.fields.dateOfPosting.toString()) }} -
-            by <b>{{ post.fields.author }}</b> in <b>{{ post.fields.category }}</b></p>
+          <p class=" text-left sm:w-1/4 sm:ml-10 mt-5 sm:mt-0">{{ useFormatDate(post.fields.dateOfPosting.toString()) }} -
+            by <b>{{ post.fields.author }}</b> in
+            <NuxtLink :to="'/' + post.fields.category.toString().toLowerCase()" class="hover:underline">
+              <b>{{ post.fields.category }}</b>
+            </NuxtLink>
+          </p>
         </div>
       </li>
     </ul>
@@ -33,7 +36,6 @@ import type { PostSkeleton } from '~/types/type';
 import { PostCategory } from "~/types/enum";
 
 const props = defineProps({
-  title: String,
   category: String,
   numberOfElements: {
     type: Number,
@@ -59,18 +61,6 @@ const selectPage = (pageNumber: number) => {
 
   selectedPage = pageNumber
   pagesPosts.value = posts.slice((props.numberOfElements * (selectedPage - 1)), (props.numberOfElements * selectedPage))
-}
-
-const formatDate = (date: string): string => {
-  const parsedDate = new Date(date);
-
-  const formattedDate = parsedDate.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-
-  return formattedDate;
 }
 
 const range = (start: number, end: number) => {

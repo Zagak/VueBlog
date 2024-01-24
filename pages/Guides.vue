@@ -1,10 +1,13 @@
 <template>
   <div>
-    Guides
+    <h1 class="font-semibold text-6xl text-center py-10">Guides</h1>
+    <ShowPosts category="Guides" class="py-10" />
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { PostCategory } from '~/types/enum';
+
 
 </script>
 

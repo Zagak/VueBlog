@@ -33,13 +33,14 @@
       <ShortInformation title="Reviews" image="/bsh-3.webp" image-first
         :checks="['Be aware of what to consider when choosing your pairs.', 'Made an informative decision.', 'Find the best shoes that suits your needs.']" />
     </section>
-    <ShowPosts class="sm:max-w-screen-2xl mx-auto px-20 pt-20" title="Last guides and reviews" :number-of-elements="2" />
+    <section>
+      <h1 class="font-normal text-3xl mx-20 text-left">Last guides and reviews</h1>
+      <ShowPosts class="sm:max-w-screen-2xl mx-auto px-20 pt-10" :number-of-elements="2" />
+    </section>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { PostCategory } from '~/types/enum';
-
 const features = [
   { "title": "Foot Health", "description": "Experience a footwear revolution that prioritizes foot health, promoting natural movement and minimizing the risk of common foot problems." },
   { "title": "Enhanced Balance and Stability", "description": "Step confidently with enhanced balance and stability with optimize proprioception for a sensory-rich experience and surefooted confidence." },
