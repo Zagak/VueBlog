@@ -7,11 +7,14 @@
 </template>
 
 <script setup>
-import { createClient } from 'contentful';
+//import { createClient } from 'contentful';
+
 import { usePostsStore } from '../store/usePostsStore';
+import * as contentful from 'contentful';
+
 
 const config = useRuntimeConfig()
-const contentfulClient = createClient({
+const contentfulClient = contentful.createClient({
   space: config.public.CONTENTFUL_SPACE_ID,
   accessToken: config.public.CONTENTFUL_ACCES_KEY,
 })
