@@ -22,6 +22,14 @@ export const usePostsStore = defineStore('posts', () => {
     })
   }
 
+  // const getPosts = async (client: ContentfulClientApi<undefined>) => {
+  //   if (posts.length !== 0) return posts
+  //   else {
+  //     await fetchPosts(client)
+  //     return posts
+  //   }
+  // }
+
   const getByCategory = ((category: string) =>
     posts.filter((post) => post.fields.category === category)
   )

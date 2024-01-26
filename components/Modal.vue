@@ -4,8 +4,8 @@
       <div class="float-right">
         <button class="text-2xl mb-10 centered ml-5" @click="$emit('close')">X</button>
         <nav class="space-y-5">
-          <NuxtLink class="block hover:underline font-semibold mr-5" v-for="item in props.menuItems" :to="item.path"
-            :key="item.path">{{
+          <NuxtLink class="block hover:underline font-semibold mr-5" @click="$emit('close')"
+            v-for="item in props.menuItems" :to="item.path" :key="item.path">{{
               item.name }}
           </NuxtLink>
         </nav>

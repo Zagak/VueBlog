@@ -14,11 +14,7 @@
     </button>
   </header>
   <Teleport to="body">
-    <Modal :show="showModal" @close="showModal = false" :menuItems="menuItems">
-      <template #header>
-        <h3>custom header</h3>
-      </template>
-    </Modal>
+    <Modal :show="showModal" @close="showModal = false" :menuItems="menuItems" />
   </Teleport>
 </template>
 
