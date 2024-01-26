@@ -65,11 +65,9 @@ const contentfulClient = contentful.createClient({
 
 const postDetails = usePostsStore().posts.find((post) => post.fields.slug === route.params.slug)
 const postContent = await contentfulClient.getEntries<ContentSkeleton>({ content_type: 'content', "fields.slug[match]": route.params.slug.toString() }) //route.params.slug.toString()
-console.log(postContent)
-console.log(postDetails)
+
 const { title, author, category, dateOfPosting, featuredImage, slug } = postDetails?.fields
 const { fullPost } = postContent.items[0].fields;
-console.log(fullPost)
 </script>
 
 <style></style>

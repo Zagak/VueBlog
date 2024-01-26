@@ -22,7 +22,6 @@ const store = usePostsStore();
 const posts: Entry<PostSkeleton>[] = store.posts
 
 const currentPostIndex = posts.findIndex((post) => post.fields.slug === props.slug)
-console.log(currentPostIndex);
 
 const prevPost = currentPostIndex > 0 ? posts.at(currentPostIndex - 1) : undefined
 const nextPost = posts.at(currentPostIndex + 1)

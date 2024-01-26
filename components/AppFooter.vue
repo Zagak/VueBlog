@@ -1,7 +1,7 @@
 <template>
   <footer class="menu-bg sm:flex">
     <div class="space-y-4">
-      <NuxtImg src="/logo-site.png" title="BarefootShoesHub" sizes="40px" />
+      <NuxtImg src="/logo-site.png" title="BarefootShoesHub" width="40" height="40" />
       <p class="text-xl font-semibold my-auto">BarefootShoesHub</p>
       <p class="max-w-80 text-stone-500">Step into Freedom: Unleash Your Sole with Barefoot Bliss!</p>
     </div>

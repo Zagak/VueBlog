@@ -1,7 +1,8 @@
 <template>
   <header class="menu-bg flex bg-primary">
     <NuxtLink class="flex" to="/">
-      <NuxtImg src="/logo-site.png" title="BarefootShoesHub" sizes="40px md:60px" />
+      <NuxtImg src="/logo-site.png" title="BarefootShoesHub" width="60" height="60" />
+      <!-- sizes="40px md:60px" -->
       <h1 class="text-3xl font-bold my-auto ml-5">BarefootShoesHub</h1>
     </NuxtLink>
     <nav class="space-x-5 my-auto mr-10 hidden sm:flex">
