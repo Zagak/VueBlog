@@ -7,8 +7,6 @@
 </template>
 
 <script setup>
-//import { createClient } from 'contentful';
-
 import { usePostsStore } from '../store/usePostsStore';
 import * as contentful from 'contentful';
 

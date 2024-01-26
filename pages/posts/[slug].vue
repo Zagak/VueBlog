@@ -11,9 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-//import { createClient } from 'contentful';
 import * as contentful from 'contentful';
-
 import type { ContentSkeleton } from '~/types/type';
 import { usePostsStore } from '~/store/usePostsStore';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
@@ -54,7 +52,6 @@ function renderNodes() {
     }
   }
 };
-
 
 const route = useRoute()
 const config = useRuntimeConfig()
