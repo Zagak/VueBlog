@@ -4,10 +4,11 @@
       <li v-for="post in pagesPosts" :key="post.sys.id">
         <div class="text-left py-5 sm:flex border-t-2 border-black">
           <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="'/posts/' + post.fields.slug">{{
-            post.fields.title
-          }}
+        post.fields.title
+      }}
           </NuxtLink>
-          <p class=" text-left sm:w-1/4 sm:ml-10 mt-5 sm:mt-0">{{ useFormatDate(post.fields.dateOfPosting.toString()) }} -
+          <p class=" text-left sm:w-1/4 sm:ml-10 mt-5 sm:mt-0">{{ useFormatDate(post.fields.dateOfPosting.toString()) }}
+            -
             by <b>{{ post.fields.author }}</b> in
             <NuxtLink :to="'/' + post.fields.category.toString().toLowerCase()" class="hover:underline">
               <b>{{ post.fields.category }}</b>
@@ -57,7 +58,7 @@ pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 const pagesPosts = ref(posts.slice((props.numberOfElements * (selectedPage - 1)), (props.numberOfElements * selectedPage)))
 
 const selectPage = (pageNumber: number) => {
-  if (pageNumber < 0 || pageNumber > pages) return
+  if (pageNumber <= 0 || pageNumber > pages) return
 
   selectedPage = pageNumber
   pagesPosts.value = posts.slice((props.numberOfElements * (selectedPage - 1)), (props.numberOfElements * selectedPage))
