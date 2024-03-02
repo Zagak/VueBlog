@@ -16,8 +16,8 @@ const contentfulClient = contentful.createClient({
   accessToken: config.public.CONTENTFUL_ACCES_KEY,
 })
 
-onBeforeMount(async () => {
-  const store = usePostsStore()
-  await store.fetchPosts(contentfulClient)
-})
+// onBeforeMount(async () => {
+//   const store = usePostsStore()
+//   await store.fetchPosts(contentfulClient)
+// })
 </script>

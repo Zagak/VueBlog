@@ -3,15 +3,18 @@
     <section>
       <div class="max-w-screen-md mx-auto">
         <h1 class="font-semibold text-4xl italic">Step into Freedom: Unleash Your Sole with Barefoot Bliss!</h1>
-        <p class="mt-10">At Barefoot Shoes Hub, we’ve curated a haven of wisdom and expertise dedicated to liberating your
+        <p class="mt-10">At Barefoot Shoes Hub, we’ve curated a haven of wisdom and expertise dedicated to liberating
+          your
           feet. Discover
           the world of shoes that embrace your natural stride, where knowledge meets comfort, all at your fingertips.
         </p>
       </div>
       <div class="mx-20">
-        <div class="my-20 mx-auto sm:max-w-screen-2xl overflow-hidden rounded-3xl">
-          <NuxtPicture src="/bsh-1.webp" />
-        </div>
+        <!-- <div class="my-20 mx-auto sm:max-w-screen-2xl overflow-hidden rounded-3xl"> -->
+        <!-- <NuxtPicture src="/bsh-1.webp" /> -->
+        <NuxtPicture src="/bsh-1.webp"
+          :imgAttrs="{ id: 'my-id', class: 'rounded-3xl', style: 'display:block', 'data-my-data': 'my-value' }" />
+        <!-- </div> -->
       </div>
     </section>
     <section class="max-w-full px-20 py-20 bg-secondary">
@@ -34,8 +37,8 @@
         :checks="['Be aware of what to consider when choosing your pairs.', 'Made an informative decision.', 'Find the best shoes that suits your needs.']" />
     </section>
     <section>
-      <h1 class="font-normal text-3xl mx-20 text-left">Last guides and reviews</h1>
-      <ShowPosts class="sm:max-w-screen-2xl mx-auto px-20 pt-10" :number-of-elements="2" />
+      <h1 class="font-normal text-3xl text-left sm:max-w-screen-2xl mx-auto px-20">Last guides and reviews</h1>
+      <!-- <ShowPosts class="sm:max-w-screen-2xl mx-auto px-20 pt-10" :number-of-elements="2" /> -->
     </section>
   </div>
 </template>
