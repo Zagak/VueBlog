@@ -38,7 +38,7 @@
     </section>
     <section>
       <h1 class="font-normal text-3xl text-left sm:max-w-screen-2xl mx-auto px-20">Last guides and reviews</h1>
-      <!-- <ShowPosts class="sm:max-w-screen-2xl mx-auto px-20 pt-10" :number-of-elements="2" /> -->
+      <ShowPosts class="sm:max-w-screen-2xl mx-auto px-20 pt-10" :number-of-elements="2" />
     </section>
   </div>
 </template>
