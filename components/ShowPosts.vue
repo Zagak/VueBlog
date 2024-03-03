@@ -35,6 +35,7 @@ import { usePostsStore } from "~/store/usePostsStore"
 import type { Entry } from 'contentful';
 import type { PostSkeleton } from '~/types/type';
 import { PostCategory } from "~/types/enum";
+import * as contentful from 'contentful';
 
 const props = defineProps({
   category: String,
@@ -48,6 +49,13 @@ const store = usePostsStore()
 let posts: Entry<PostSkeleton>[];
 let pages: number;
 const selectedPage = ref(1);
+
+const config = useRuntimeConfig()
+const contentfulClient = contentful.createClient({
+  space: config.public.CONTENTFUL_SPACE_ID,
+  accessToken: config.public.CONTENTFUL_ACCES_KEY,
+})
+await store.fetchPosts(contentfulClient)
 
 if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
 else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
