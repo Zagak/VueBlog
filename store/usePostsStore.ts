@@ -1,26 +1,23 @@
-import { defineStore } from 'pinia'
-import type { Entry, ContentfulClientApi } from 'contentful';
-import type { PostSkeleton } from '~/types/type';
-import { PostCategory } from '~/types/enum';
+import { defineStore } from "pinia";
+import type { Entry, ContentfulClientApi } from "contentful";
+import type { PostSkeleton } from "~/types/type";
+import { PostCategory } from "~/types/enum";
 
-export const usePostsStore = defineStore('posts', () => {
-  const posts: Entry<PostSkeleton>[] = []
+export const usePostsStore = defineStore("posts", () => {
+  const posts: Entry<PostSkeleton>[] = [];
 
   const fetchPosts = async (client: ContentfulClientApi<undefined>) => {
-    if (posts.length !== 0) return
+    if (posts.length !== 0) return;
 
-    const res = await client.getEntries<PostSkeleton>({ content_type: 'blogPost' })
-    res.items.sort((a, b) => {
-      const dateA = new Date(a.fields.dateOfPosting).getTime();
-      const dateB = new Date(b.fields.dateOfPosting).getTime();
-
-      return dateB - dateA;
+    const res = await client.getEntries<PostSkeleton>({
+      content_type: "blogPost",
+      order: "-sys.createdAt",
     });
 
-    res.items.forEach(post => {
-      posts.push(post)
-    })
-  }
+    res.items.forEach((post) => {
+      posts.push(post);
+    });
+  };
 
   // const getPosts = async (client: ContentfulClientApi<undefined>) => {
   //   if (posts.length !== 0) return posts
@@ -30,17 +27,12 @@ export const usePostsStore = defineStore('posts', () => {
   //   }
   // }
 
-  const getByCategory = ((category: string) =>
-    posts.filter((post) => post.fields.category === category)
-  )
+  const getByCategory = (category: string) =>
+    posts.filter((post) => post.fields.category === category);
 
-  const getGuidesPosts = computed(() =>
-    getByCategory(PostCategory.Guides)
-  )
+  const getGuidesPosts = computed(() => getByCategory(PostCategory.Guides));
 
-  const getReviewsPosts = computed(() =>
-    getByCategory(PostCategory.Reviews)
-  )
+  const getReviewsPosts = computed(() => getByCategory(PostCategory.Reviews));
 
-  return { posts, fetchPosts, getGuidesPosts, getReviewsPosts }
-})
+  return { posts, fetchPosts, getGuidesPosts, getReviewsPosts };
+});

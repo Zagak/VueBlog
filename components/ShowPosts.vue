@@ -46,22 +46,24 @@ const props = defineProps({
 
 const store = usePostsStore()
 let posts: Entry<PostSkeleton>[];
-let pages: number = 1;
-let selectedPage = 1;
+let pages: number;
+const selectedPage = ref(1);
 
 if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
 else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
 else posts = store.posts
-
+console.log(posts)
 pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 
-const pagesPosts = ref(posts.slice((props.numberOfElements * (selectedPage - 1)), (props.numberOfElements * selectedPage)))
+const pagesPosts = computed(() => {
+  return posts.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
+});
 
+console.log(pagesPosts.value)
 const selectPage = (pageNumber: number) => {
   if (pageNumber <= 0 || pageNumber > pages) return
 
-  selectedPage = pageNumber
-  pagesPosts.value = posts.slice((props.numberOfElements * (selectedPage - 1)), (props.numberOfElements * selectedPage))
+  selectedPage.value = pageNumber
 }
 
 const range = (start: number, end: number) => {
