@@ -12,6 +12,9 @@ import * as contentful from 'contentful';
 
 const config = useRuntimeConfig()
 
+//
+
+//
 // onBeforeMount(async () => {
 const contentfulClient = contentful.createClient({
   space: config.public.CONTENTFUL_SPACE_ID,

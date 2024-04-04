@@ -1,6 +1,11 @@
 <template>
   <div class="mx-20">
     <ul>
+      <li v-for="item in data" :key="item._id">
+        <p>{{ item.text }}</p>
+      </li>
+    </ul>
+    <ul>
       <li v-for="post in posts" :key="post.sys.id">
         <div class="text-left py-5 sm:flex border-t-2 border-black">
           <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="'/posts/' + post.fields.slug">{{
@@ -34,7 +39,10 @@
 import { usePostsStore } from "~/store/usePostsStore"
 import type { Entry } from 'contentful';
 import type { PostSkeleton } from '~/types/type';
-import { PostCategory } from "~/types/enum";
+
+import axios from 'axios';
+const { data } = await axios.get('https://cat-fact.herokuapp.com/facts')
+console.log(data)
 
 const props = defineProps({
   category: String,
