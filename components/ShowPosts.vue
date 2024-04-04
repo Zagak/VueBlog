@@ -45,13 +45,20 @@ const props = defineProps({
 })
 
 const store = usePostsStore()
-let posts: Entry<PostSkeleton>[];
+let posts: Entry<PostSkeleton>[] = store.posts;
 let pages: number;
 const selectedPage = ref(1);
 
-if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
-else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
-else posts = store.posts
+// ////////////////////
+onMounted(() => {
+  if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
+  else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
+  else posts = store.posts
+
+  console.log(posts)
+})
+// ////////////////////
+
 console.log(posts)
 pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 
