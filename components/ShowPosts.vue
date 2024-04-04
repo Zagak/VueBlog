@@ -1,6 +1,6 @@
 <template>
   <div class="mx-20">
-    <ul>
+    <!-- <ul>
       <li v-for="post in posts" :key="post.sys.id">
         <div class="text-left py-5 sm:flex border-t-2 border-black">
           <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="'/posts/' + post.fields.slug">{{
@@ -16,7 +16,7 @@
           </p>
         </div>
       </li>
-    </ul>
+    </ul> -->
     <div class="flex justify-between text-xl">
       <button @click="selectPage(selectedPage - 1)" class="before:content-['\2190'] hover:underline">Prev</button>
       <div class="flex">
@@ -50,23 +50,23 @@ let pages: number;
 const selectedPage = ref(1);
 
 // ////////////////////
-onMounted(() => {
-  if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
-  else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
-  else posts = store.posts
+// onMounted(() => {
+//   if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
+//   else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
+//   else posts = store.posts
 
-  console.log(posts)
-})
+//   console.log(posts)
+// })
 // ////////////////////
 
-// console.log(posts)
-// pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
+console.log(posts)
+pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 
-// const pagesPosts = computed(() => {
-//   return posts.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
-// });
+const pagesPosts = computed(() => {
+  return posts.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
+});
 
-//console.log(pagesPosts.value)
+console.log(pagesPosts.value)
 const selectPage = (pageNumber: number) => {
   if (pageNumber <= 0 || pageNumber > pages) return
 
