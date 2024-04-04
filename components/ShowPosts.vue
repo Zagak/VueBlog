@@ -1,7 +1,7 @@
 <template>
   <div class="mx-20">
     <ul>
-      <li v-for="item in data" :key="item._id">
+      <li v-for="item in cats" :key="item">
         <p>{{ item.text }}</p>
       </li>
     </ul>
@@ -40,9 +40,7 @@ import { usePostsStore } from "~/store/usePostsStore"
 import type { Entry } from 'contentful';
 import type { PostSkeleton } from '~/types/type';
 
-import axios from 'axios';
-const { data } = await axios.get('https://cat-fact.herokuapp.com/facts')
-console.log(data)
+
 
 const props = defineProps({
   category: String,
@@ -58,6 +56,8 @@ let pages: number;
 const selectedPage = ref(1);
 
 // ////////////////////
+const cats = store.cats
+//console.log(cats.text)
 // onMounted(() => {
 //   if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
 //   else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
