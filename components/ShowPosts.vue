@@ -45,7 +45,7 @@ const props = defineProps({
 })
 
 const store = usePostsStore()
-let posts: Entry<PostSkeleton>[] = store.posts;
+let posts: Entry<PostSkeleton>[] = reactive(store.posts);
 let pages: number;
 const selectedPage = ref(1);
 
@@ -59,14 +59,14 @@ onMounted(() => {
 })
 // ////////////////////
 
-console.log(posts)
-pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
+// console.log(posts)
+// pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 
-const pagesPosts = computed(() => {
-  return posts.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
-});
+// const pagesPosts = computed(() => {
+//   return posts.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
+// });
 
-console.log(pagesPosts.value)
+//console.log(pagesPosts.value)
 const selectPage = (pageNumber: number) => {
   if (pageNumber <= 0 || pageNumber > pages) return
 
