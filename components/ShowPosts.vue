@@ -1,7 +1,7 @@
 <template>
   <div class="mx-20">
     <ul>
-      <li v-for="post in pagesPosts" :key="post.sys.id">
+      <li v-for="post in posts" :key="post.sys.id">
         <div class="text-left py-5 sm:flex border-t-2 border-black">
           <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="'/posts/' + post.fields.slug">{{
         post.fields.title
