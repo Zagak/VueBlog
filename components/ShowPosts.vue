@@ -1,6 +1,6 @@
 <template>
   <div class="mx-20">
-    <!-- <ul>
+    <ul>
       <li v-for="post in posts" :key="post.sys.id">
         <div class="text-left py-5 sm:flex border-t-2 border-black">
           <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="'/posts/' + post.fields.slug">{{
@@ -16,7 +16,7 @@
           </p>
         </div>
       </li>
-    </ul> -->
+    </ul>
     <div class="flex justify-between text-xl">
       <button @click="selectPage(selectedPage - 1)" class="before:content-['\2190'] hover:underline">Prev</button>
       <div class="flex">
@@ -36,6 +36,10 @@ import type { Entry } from 'contentful';
 import type { PostSkeleton } from '~/types/type';
 import { PostCategory } from "~/types/enum";
 
+import * as contentful from 'contentful';
+
+const config = useRuntimeConfig()
+
 const props = defineProps({
   category: String,
   numberOfElements: {
@@ -44,19 +48,20 @@ const props = defineProps({
   },
 })
 
-const store = usePostsStore()
-let posts: Entry<PostSkeleton>[] = reactive(store.posts);
+//const store = usePostsStore()
+// let posts: Entry<PostSkeleton>[] = reactive(store.posts);
 let pages: number;
 const selectedPage = ref(1);
 
 // ////////////////////
-// onMounted(() => {
-//   if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
-//   else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
-//   else posts = store.posts
+const contentfulClient = contentful.createClient({
+  space: config.public.CONTENTFUL_SPACE_ID,
+  accessToken: config.public.CONTENTFUL_ACCES_KEY,
+})
 
-//   console.log(posts)
-// })
+const store = usePostsStore()
+await store.fetchPosts(contentfulClient)
+let posts: Entry<PostSkeleton>[] = reactive(store.posts);
 // ////////////////////
 
 console.log(posts)
