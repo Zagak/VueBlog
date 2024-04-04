@@ -16,13 +16,13 @@ const config = useRuntimeConfig()
 const store = usePostsStore()
 await store.fetchCats()
 //
-onMounted(async () => {
-  const contentfulClient = contentful.createClient({
-    space: config.public.CONTENTFUL_SPACE_ID,
-    accessToken: config.public.CONTENTFUL_ACCES_KEY,
-  })
-
-
-  await store.fetchPosts(contentfulClient)
+// onMounted(async () => {
+const contentfulClient = contentful.createClient({
+  space: config.public.CONTENTFUL_SPACE_ID,
+  accessToken: config.public.CONTENTFUL_ACCES_KEY,
 })
+
+
+await store.fetchPosts(contentfulClient)
+// })
 </script>

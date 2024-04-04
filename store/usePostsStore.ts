@@ -18,7 +18,7 @@ export const usePostsStore = defineStore("posts", () => {
   };
 
   const fetchPosts = async (client: ContentfulClientApi<undefined>) => {
-    if (posts.length !== 0) return;
+    //if (posts.length !== 0) return;
 
     const res = await client.getEntries<PostSkeleton>({
       content_type: "blogPost",
