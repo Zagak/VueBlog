@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { usePostsStore } from '../store/usePostsStore';
+import { usePostsStore } from './store/usePostsStore';
 import * as contentful from 'contentful';
 
 const config = useRuntimeConfig()
