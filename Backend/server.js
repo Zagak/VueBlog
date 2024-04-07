@@ -1,32 +1,33 @@
-require('dotenv').config()
+require("dotenv").config();
+require("express-async-errors");
 
-const express = require("express")
-const server = express()
+const express = require("express");
+const server = express();
 
-const connectDB = require('./db/connect')
-const authRouter = require('./routes/auth')
+const connectDB = require("./db/connect");
+const authRouter = require("./routes/auth");
 
-server.use(express.json())
+const errorHandlerMiddleware = require("./middleware/error-handler");
 
-server.use('/api/v1/auth', authRouter);
+server.use(express.json());
 
-const port = process.env.PORT || 5000
+server.use("/api/v1/auth", authRouter);
 
-//let sequelize = null;
-const start = async() =>{
-  try{
-    // sequelize = await connectDB(process.env.HEROKU_URI)
-    // await sequelize.authenticate();
-    
-    server.listen(port,()=>{
-      console.log(`Server is listening to port ${port} ...`)
-    })
-  }catch (error){
-    console.log(error)
+server.use(errorHandlerMiddleware);
+
+const port = process.env.PORT || 5000;
+
+const start = async () => {
+  try {
+    server.listen(port, () => {
+      console.log(`Server is listening to port ${port} ...`);
+    });
+  } catch (error) {
+    console.log(error);
   }
-}
+};
 
-start()
+start();
 
 // const getSequelize = sequelize
 
