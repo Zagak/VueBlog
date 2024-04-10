@@ -4,14 +4,16 @@ require("express-async-errors");
 const express = require("express");
 const server = express();
 
-const connectDB = require("./db/connect");
 const authRouter = require("./routes/auth");
+const commentRouter = require("./routes/comments");
 
+const auth = require("./middleware/authentication");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
 server.use(express.json());
 
 server.use("/api/v1/auth", authRouter);
+server.use("/api/v1/comment", auth, commentRouter);
 
 server.use(errorHandlerMiddleware);
 
@@ -28,7 +30,3 @@ const start = async () => {
 };
 
 start();
-
-// const getSequelize = sequelize
-
-// module.exports={getSequelize}

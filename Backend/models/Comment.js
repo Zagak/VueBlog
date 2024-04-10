@@ -1,11 +1,14 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const Token = sequelize.define("Token", {
-    refreshToken: {
+  const Comment = sequelize.define("Comment", {
+    text: {
       type: DataTypes.STRING,
-      unique: true,
-      primaryKey: true,
+      allowNull: false,
+    },
+    postId: {
+      type: DataTypes.SMALLINT,
+      allowNull: false,
     },
   });
 
@@ -14,5 +17,5 @@ module.exports = (sequelize) => {
     // Code here
   })();
 
-  return Token;
+  return Comment;
 };

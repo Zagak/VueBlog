@@ -1,7 +1,7 @@
 const db = require("../models");
 const CustomError = require("../errors/custom-error");
 const { StatusCodes } = require("http-status-codes");
-
+const jwt = require("jsonwebtoken");
 const User = db.user;
 const Token = db.token;
 
@@ -36,4 +36,22 @@ const login = async (req, res) => {
   return res.status(200).json(user.createAccesJWT());
 };
 
-module.exports = { register, login };
+const token = async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer")) {
+    throw new CustomError(StatusCodes.UNAUTHORIZED, "Authentication invalid");
+  }
+
+  const refreshToken = authHeader.split(" ")[1];
+
+  const { userId } = jwt.verify(refreshToken, process.env.JWT_RFS_SECRET);
+
+  const user = await User.findOne({ where: { id: userId } });
+
+  const accesToken = user.createAccesJWT();
+
+  res.status(StatusCodes.OK).json({ accesToken });
+};
+
+module.exports = { register, login, token };

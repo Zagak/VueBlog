@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
