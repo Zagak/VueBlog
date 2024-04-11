@@ -2,7 +2,12 @@ const CustomError = require("../errors/custom-error");
 const db = require("../models");
 const Comment = db.comment;
 const { StatusCodes } = require("http-status-codes");
-const { sortCommentsIntoMap } = require("../utils");
+const {
+  sortCommentsIntoMap,
+  addChildCommentsToParent,
+  setTopComments,
+} = require("../utils");
+const MockComment = require("../classes/MockComment");
 
 const addComment = async (req, res) => {
   const { text, postId, CommentId } = req.body;
@@ -38,9 +43,32 @@ const getAllComments = async (req, res) => {
 
   const allComments = await Comment.findAll({ where: { postId: postId } });
 
-  const sortedComments = sortCommentsIntoMap(allComments);
+  const mockComments = [];
+  for (const cmt of allComments) {
+    mockComments.push(
+      new MockComment(
+        cmt.id,
+        cmt.text,
+        cmt.postId,
+        cmt.createdAt,
+        cmt.updatedAt,
+        cmt.UserId,
+        cmt.CommentId,
+        []
+      )
+    );
+  }
+
+  const sortedComments = sortCommentsIntoMap(mockComments);
+  //console.log(sortedComments);
+  addChildCommentsToParent(mockComments, sortedComments);
   console.log(sortedComments);
-  res.status(StatusCodes.OK).json({ sortedComments });
+  //const topComments = setTopComments(sortedComments); //dunno about this , incearca doar cu sortedComments obtinut dupa addChildCommentsToParent sa constuiesti hierarhia
+
+  //console.log(topComments[0].childCommets);
+  res.status(StatusCodes.OK).json({ allComments });
 };
 
-module.exports = { addComment, getAllComments };
+const updateComment = (req, res) => {};
+
+module.exports = { addComment, getAllComments, updateComment };

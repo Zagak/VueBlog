@@ -3,9 +3,11 @@ const sortCommentsIntoMap = (commentsArray) => {
   const commentsMap = new Map();
 
   if (commentsArray && commentsArray.length > 0) {
-    for (const item of commentsArray) {
-      if (item) {
-        commentsMap.set(item.CommentId, item);
+    for (const cmt of commentsArray) {
+      if (cmt) {
+        if (!commentsMap.has(cmt.CommentId)) {
+          commentsMap.set(cmt.CommentId, cmt);
+        }
       }
     }
   }
@@ -13,6 +15,35 @@ const sortCommentsIntoMap = (commentsArray) => {
   return commentsMap;
 };
 
-const addChildCommentsToParent = (commentsArray, commentsMap) => {};
+const addChildCommentsToParent = (commentsArray, commentsMap) => {
+  if (commentsArray && commentsArray.length > 0 && commentsMap) {
+    for (const cmt of commentsArray) {
+      if (commentsMap.has(cmt.CommentId)) {
+        parentComment = commentsMap.get(cmt.CommentId);
+        if (parentComment) {
+          parentComment.childCommets.push(cmt);
+        }
+      }
+    }
+  }
+};
 
-module.exports = { sortCommentsIntoMap };
+const setTopComments = (commentsMap) => {
+  let topArray = [];
+
+  if (commentsMap) {
+    commentsMap.forEach((value, key) => {
+      if (!key) {
+        topArray = value.childCommets;
+      }
+    });
+  }
+
+  return topArray;
+};
+
+module.exports = {
+  sortCommentsIntoMap,
+  addChildCommentsToParent,
+  setTopComments,
+};
