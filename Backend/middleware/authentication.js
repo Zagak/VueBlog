@@ -3,6 +3,10 @@ const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
 
 const auth = async (req, res, next) => {
+  if (req.path === "/data" && req.method === "GET") {
+    return next();
+  }
+
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer")) {

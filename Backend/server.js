@@ -10,7 +10,15 @@ const commentRouter = require("./routes/comments");
 const auth = require("./middleware/authentication");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
+//extra security packages
+const helmet = require("helmet");
+const cors = require("cors");
+const xss = require("xss-clean");
+
 server.use(express.json());
+server.use(helmet());
+server.use(cors());
+server.use(xss());
 
 server.use("/api/v1/auth", authRouter);
 server.use("/api/v1/comment", auth, commentRouter);

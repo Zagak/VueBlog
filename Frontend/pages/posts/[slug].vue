@@ -7,6 +7,8 @@
     <!-- <div v-html="documentToHtmlString(fullPost)" /> -->
     <RichTextRenderer :document="fullPost" :markRenderers="renderMarks()" :nodeRenderers="renderNodes()" />
     <PostsNavigator :slug="slug" class="py-40 my-40 border-t-2 border-black" />
+    <div v-if="accesToken">Avem acces token</div>
+    <div v-else>NU avem acces token domne</div>
   </div>
 </template>
 
@@ -17,6 +19,7 @@ import { usePostsStore } from '~/store/usePostsStore';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 import type { Hyperlink, Paragraph, Heading2, ListItem, AssetHyperlink } from '@contentful/rich-text-types';
+import axios from 'axios';
 
 function renderMarks() {
   return {
@@ -64,7 +67,17 @@ const postDetails = usePostsStore().posts.find((post) => post.fields.slug === ro
 const postContent = await contentfulClient.getEntries<ContentSkeleton>({ content_type: 'content', "fields.slug[match]": route.params.slug.toString() }) //route.params.slug.toString()
 
 const { title, author, category, dateOfPosting, featuredImage, slug } = postDetails?.fields
-const { fullPost } = postContent.items[0].fields;
+const { fullPost, postId } = postContent.items[0].fields;
+
+//comments displaying
+///const accesToken = localStorage.getItem("accesToken");
+
+async function showComments() {
+  const { data } = await axios.get(`http://localhost:5000/api/v1/comment/data?postId=${postId}`);
+  console.log(data)
+}
+showComments();
+
 </script>
 
 <style></style>

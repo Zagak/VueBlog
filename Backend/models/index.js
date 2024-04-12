@@ -37,6 +37,7 @@ const db = {};
 db.user = require("./User")(sequelize);
 db.token = require("./Token")(sequelize);
 db.comment = require("./Comment")(sequelize);
+db.sequelize = sequelize;
 
 db.user.hasMany(db.token);
 db.token.belongsTo(db.user, { foreignKey: "UserId" });
