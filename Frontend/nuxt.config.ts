@@ -5,22 +5,20 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       CONTENTFUL_SPACE_ID: process.env.NUXT_ENV_CONTENTFUL_SPACE_ID,
-      CONTENTFUL_ACCES_KEY: process.env.NUXT_ENV_CONTENTFUL_ACCES_KEY
-    }
+      CONTENTFUL_ACCES_KEY: process.env.NUXT_ENV_CONTENTFUL_ACCES_KEY,
+    },
   },
 
-  css: [
-    '~/assets/css/main.css',
-    '@fortawesome/fontawesome-free/css/all.css',
-  ],
+  devServer: {
+    port: 6058,
+  },
+
+  css: ["~/assets/css/main.css", "@fortawesome/fontawesome-free/css/all.css"],
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-  modules: [
-    '@nuxt/image',
-    '@pinia/nuxt',
-  ],
-})
+  modules: ["@nuxt/image", "@pinia/nuxt"],
+});

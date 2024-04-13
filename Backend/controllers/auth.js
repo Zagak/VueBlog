@@ -10,7 +10,9 @@ const register = async (req, res) => {
   const refreshToken = user.createRefreshJWT();
   await Token.create({ refreshToken, UserId: user.id });
 
-  return res.status(200).json(user.createAccesJWT());
+  const accesToken = user.createAccesJWT();
+
+  return res.status(200).json({ refreshToken, accesToken });
 };
 
 const login = async (req, res) => {
@@ -33,7 +35,9 @@ const login = async (req, res) => {
   const refreshToken = user.createRefreshJWT();
   await Token.create({ refreshToken, UserId: user.id });
 
-  return res.status(200).json(user.createAccesJWT());
+  const accesToken = user.createAccesJWT();
+
+  return res.status(200).json({ refreshToken, accesToken });
 };
 
 const token = async (req, res) => {

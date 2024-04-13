@@ -41,77 +41,46 @@ const addComment = async (req, res) => {
 const getAllComments = async (req, res) => {
   const { postId } = req.query;
 
-  const allComments = await Comment.findAll({ where: { postId: postId } });
-
-  const mockComments = [];
-  for (const cmt of allComments) {
-    mockComments.push(
-      new MockComment(
-        cmt.id,
-        cmt.text,
-        cmt.postId,
-        cmt.createdAt,
-        cmt.updatedAt,
-        cmt.UserId,
-        cmt.CommentId,
-        []
-      )
-    );
-  }
-
-  //const sortedComments = sortCommentsIntoMap(mockComments);
-  //console.log(sortedComments);
-  //addChildCommentsToParent(mockComments, sortedComments);
-  //console.log(sortedComments);
-  //const topComments = setTopComments(sortedComments); //dunno about this , incearca doar cu sortedComments obtinut dupa addChildCommentsToParent sa constuiesti hierarhia
-
-  ////
-  // const topComments = [];
-  // const childComments = [];
-
-  // mockComments.forEach((cmt) => {
-  //   if (cmt.CommentId === null) topComments.push(cmt);
-  //   else childComments.push(cmt);
-  // });
-
   async function getCommentHierarchy() {
     try {
       const sqlQuery = `
       WITH RECURSIVE CommentTree AS (
         SELECT 
-          id, 
-          "CommentId" AS parent_id, 
-          text, 
-          "UserId", 
-          "postId", 
-          "createdAt", 
-          "updatedAt",
+          c.id, 
+          c."CommentId" AS parent_id, 
+          c.text, 
+          u.name,
+          c."UserId", 
+          c."postId", 
+          c."createdAt", 
+          c."updatedAt",
           1 AS LEVEL
-        FROM "Comments"
-        WHERE "CommentId" IS NULL
-      
+          FROM "Comments" c
+          JOIN "Users" u ON c."UserId" = u."id"
+          WHERE c."CommentId" IS NULL AND c."postId" = ${postId}
+
         UNION ALL
       
         SELECT 
           c.id, 
           c."CommentId",
-          c.text, 
+          c.text,
+          u.name,
           c."UserId", 
           c."postId", 
           c."createdAt", 
           c."updatedAt",
           ct.LEVEL + 1
-        FROM "Comments" c
-        JOIN CommentTree ct ON ct.id = c."CommentId"
+          FROM "Comments" c
+          JOIN CommentTree ct ON ct.id = c."CommentId"
+          JOIN "Users" u ON c."UserId" = u."id"
+          WHERE c."postId" = ${postId}
       )
-      SELECT * FROM CommentTree;          
+      SELECT * FROM CommentTree ORDER BY "createdAt";           
 `;
 
-      const result = await db.sequelize.query(sqlQuery, {
-        //type: db.sequelize.QueryTypes.SELECT,
-      });
-      //console.log(result[0]);
-
+      const result = await db.sequelize.query(sqlQuery);
+      console.log(result);
       const nestComments = (comments, parentId = null) => {
         return comments
           .filter((comment) => comment.parent_id === parentId)
@@ -121,16 +90,14 @@ const getAllComments = async (req, res) => {
           }));
       };
 
-      const nestedComments = nestComments(result[0]);
-      console.log(nestedComments[1]);
+      return nestComments(result[0]);
     } catch (error) {
-      console.error("Error executing raw SQL:", error);
+      throw new CustomError(StatusCodes.BAD_GATEWAY, "Error executing SQL");
     }
   }
 
-  getCommentHierarchy();
-  res.status(StatusCodes.OK).json({});
-  ////
+  const nestedComments = await getCommentHierarchy();
+  res.status(StatusCodes.OK).json({ nestedComments });
 };
 
 const updateComment = async (req, res) => {
@@ -148,7 +115,7 @@ const updateComment = async (req, res) => {
     return res.status(StatusCodes.OK).send("Comment modified succesfully");
   }
 
-  return res.status(StatusCodes.FORBIDDEN).send("Cannot modify the comment");
+  throw new CustomError(StatusCodes.FORBIDDEN, "Cannot modify the comment");
 };
 
 const deleteComment = async (req, res) => {
@@ -164,8 +131,7 @@ const deleteComment = async (req, res) => {
 
     return res.status(StatusCodes.OK).send("Comment deleted succesfully");
   }
-
-  return res.status(StatusCodes.FORBIDDEN).send("Cannot delete the comment");
+  throw new CustomError(StatusCodes.FORBIDDEN, "Cannot delete the comment");
 };
 
 module.exports = { addComment, getAllComments, updateComment, deleteComment };
