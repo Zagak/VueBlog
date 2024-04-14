@@ -12,7 +12,14 @@ const register = async (req, res) => {
 
   const accesToken = user.createAccesJWT();
 
-  return res.status(200).json({ refreshToken, accesToken });
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    //secure: true, // Set to true if using HTTPS
+    //path: "/api/v1/auth/register",
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  });
+
+  return res.status(200).json({ accesToken });
 };
 
 const login = async (req, res) => {
@@ -37,17 +44,28 @@ const login = async (req, res) => {
 
   const accesToken = user.createAccesJWT();
 
-  return res.status(200).json({ refreshToken, accesToken });
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: true, // Set to true if using HTTPS
+    path: "/api/v1/auth/login",
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  });
+
+  return res.status(200).json({ accesToken });
 };
 
 const token = async (req, res) => {
-  const authHeader = req.headers.authorization;
+  // const authHeader = req.headers.authorization;
+  // if (!authHeader || !authHeader.startsWith("Bearer")) {
+  //   throw new CustomError(StatusCodes.UNAUTHORIZED, "Authentication invalid");
+  // }
+  //const refreshToken = authHeader.split(" ")[1];
 
-  if (!authHeader || !authHeader.startsWith("Bearer")) {
-    throw new CustomError(StatusCodes.UNAUTHORIZED, "Authentication invalid");
+  const refreshToken = req.cookies["refreshToken"];
+
+  if (!refreshToken) {
+    throw new CustomError(StatusCodes.UNAUTHORIZED, "No token found!");
   }
-
-  const refreshToken = authHeader.split(" ")[1];
 
   const { userId } = jwt.verify(refreshToken, process.env.JWT_RFS_SECRET);
 

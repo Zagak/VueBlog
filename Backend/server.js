@@ -2,6 +2,8 @@ require("dotenv").config();
 require("express-async-errors");
 
 const express = require("express");
+const cookieParser = require("cookie-parser");
+
 const server = express();
 
 const authRouter = require("./routes/auth");
@@ -17,8 +19,14 @@ const xss = require("xss-clean");
 
 server.use(express.json());
 server.use(helmet());
-server.use(cors());
+server.use(
+  cors({
+    origin: process.env.CLIENT_URI, // Replace with the origin you want to allow
+    credentials: true, // Set to true to allow credentials
+  })
+);
 server.use(xss());
+server.use(cookieParser());
 
 server.use("/api/v1/auth", authRouter);
 server.use("/api/v1/comment", auth, commentRouter);
