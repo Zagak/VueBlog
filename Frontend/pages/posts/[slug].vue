@@ -71,14 +71,6 @@ const postContent = await contentfulClient.getEntries<ContentSkeleton>({ content
 const { title, author, category, dateOfPosting, featuredImage, slug } = postDetails?.fields
 const { fullPost, postId } = postContent.items[0].fields;
 
-//comments displaying
-///const accesToken = localStorage.getItem("accesToken");
-
-
-
-
-
-
 </script>
 
 <style></style>

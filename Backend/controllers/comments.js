@@ -14,6 +14,7 @@ const addComment = async (req, res) => {
 
   const UserId = req.user.userId;
 
+  let newComment = null;
   if (CommentId) {
     const parentComment = await Comment.findOne({
       where: { id: CommentId },
@@ -25,17 +26,22 @@ const addComment = async (req, res) => {
         "Parent commnent id does not exist"
       );
     }
-    await Comment.create({
+    newComment = await Comment.create({
       text,
       postId: postId,
       UserId,
       CommentId: parentComment.id,
     });
   } else {
-    await Comment.create({ text, postId: postId, UserId, CommentId: null });
+    newComment = await Comment.create({
+      text,
+      postId: postId,
+      UserId,
+      CommentId: null,
+    });
   }
-
-  return res.status(StatusCodes.OK).send({ id: "Comment added succesfully" });
+  //console.log(newComment.dataValues);
+  return res.status(StatusCodes.OK).json(newComment);
 };
 
 const getAllComments = async (req, res) => {
@@ -76,7 +82,7 @@ const getAllComments = async (req, res) => {
           JOIN "Users" u ON c."UserId" = u."id"
           WHERE c."postId" = ${postId}
       )
-      SELECT * FROM CommentTree ORDER BY "createdAt";           
+      SELECT * FROM CommentTree ORDER BY "createdAt" DESC;           
 `;
 
       const result = await db.sequelize.query(sqlQuery);

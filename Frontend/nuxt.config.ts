@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     public: {
       CONTENTFUL_SPACE_ID: process.env.NUXT_ENV_CONTENTFUL_SPACE_ID,
       CONTENTFUL_ACCES_KEY: process.env.NUXT_ENV_CONTENTFUL_ACCES_KEY,
+      SERVER_URI: process.env.NUXT_ENV_SERVER_URI,
     },
   },
 
