@@ -2,8 +2,7 @@
   <div v-if="accesToken" class="flex space-x-4">
     <textarea rows="4" cols="50" class="w-full h-24 p-3 rounded-lg border-black border-2 max-w-2xl max-h-20"
       placeholder="Write a comment ..." v-model="commentValue" />
-    <button class=" bg-slate-600 w-24 h-12 ml-auto self-center"
-      @click="addComment($props.postId, commentValue, null, postComments)">
+    <button class=" bg-slate-600 w-24 h-12 ml-auto self-center" @click="addNewComment">
       <p class="text-white">Post</p>
     </button>
   </div>
@@ -49,10 +48,17 @@ const setAuthType = (type: string) => {
 
 const accesToken = userStore.getAccesToken();
 
+
 // const postComments: Array<IComment> = await showComments(props.postId);
 // const refPostComments: Ref<> = ref(null);
 // refPostComments.value = postComments;
 
 const postComments = ref(await showComments(props.postId));
+
+const addNewComment = async () => {
+  const newComment = await addComment(props.postId, commentValue.value, null)
+
+  postComments.value.unshift(newComment);
+}
 
 </script>

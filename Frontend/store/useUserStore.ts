@@ -8,7 +8,7 @@ export const useUserStore = defineStore("user", () => {
       const token = localStorage.getItem("accesToken");
       accesTokenJWT.value = token;
     }
-    return accesTokenJWT.value;
+    return accesTokenJWT;
   };
 
   const setAccesToken = (accesToken: string) => {

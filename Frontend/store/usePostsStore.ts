@@ -14,7 +14,7 @@ export const usePostsStore = defineStore("posts", () => {
       {}
     );
     cats.value = data.value;
-    console.log(cats.value);
+    //console.log(cats.value);
   };
 
   const fetchPosts = async (client: ContentfulClientApi<undefined>) => {

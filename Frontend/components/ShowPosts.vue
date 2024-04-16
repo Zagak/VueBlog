@@ -67,14 +67,14 @@ const cats = store.cats
 // })
 // ////////////////////
 
-console.log(posts)
+//console.log(posts)
 pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 
 const pagesPosts = computed(() => {
   return posts.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
 });
 
-console.log(pagesPosts.value)
+//console.log(pagesPosts.value)
 const selectPage = (pageNumber: number) => {
   if (pageNumber <= 0 || pageNumber > pages) return
 

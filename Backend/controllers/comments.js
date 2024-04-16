@@ -13,6 +13,7 @@ const addComment = async (req, res) => {
   const { text, postId, CommentId } = req.body;
 
   const UserId = req.user.userId;
+  const UserName = req.user.name;
 
   let newComment = null;
   if (CommentId) {
@@ -41,7 +42,11 @@ const addComment = async (req, res) => {
     });
   }
   //console.log(newComment.dataValues);
-  return res.status(StatusCodes.OK).json(newComment);
+  console.log(newComment);
+  console.log({ ...newComment.dataValues, userName: UserName });
+  return res
+    .status(StatusCodes.OK)
+    .json({ ...newComment.dataValues, name: UserName });
 };
 
 const getAllComments = async (req, res) => {

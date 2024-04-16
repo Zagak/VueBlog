@@ -14,8 +14,7 @@ export async function showComments(postId: number | undefined) {
 export async function addComment(
   postId: number | undefined,
   text: String,
-  CommentId: Number | null,
-  postComments: any
+  CommentId: Number | null
 ) {
   const accesToken = store.getAccesToken();
 
@@ -23,7 +22,7 @@ export async function addComment(
     method: "POST",
     headers: {
       ...useRequestHeaders(["cookie"]), // Spread the cookie header(s)
-      Authorization: `Bearer ${accesToken}`, // Add the Authorization header
+      Authorization: `Bearer ${accesToken.value}`, // Add the Authorization header
     },
     body: {
       text: text,
@@ -31,8 +30,5 @@ export async function addComment(
       CommentId: CommentId,
     },
   });
-  //console.log(postComments.value)
-  postComments.value.push(newComment);
-  console.log(postComments.value);
-  //return newComment;
+  return newComment;
 }
