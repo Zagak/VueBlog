@@ -46,8 +46,8 @@ const login = async (req, res) => {
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: true, // Set to true if using HTTPS
-    path: "/api/v1/auth/login",
+    //secure: true, // Set to true if using HTTPS
+    path: "/",
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   });
 
@@ -60,8 +60,10 @@ const token = async (req, res) => {
   //   throw new CustomError(StatusCodes.UNAUTHORIZED, "Authentication invalid");
   // }
   //const refreshToken = authHeader.split(" ")[1];
-
+  console.log();
   const refreshToken = req.cookies["refreshToken"];
+
+  console.log(refreshToken);
 
   if (!refreshToken) {
     throw new CustomError(StatusCodes.UNAUTHORIZED, "No token found!");

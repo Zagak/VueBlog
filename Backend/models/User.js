@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
       { userId: this.id, name: this.name, email: this.email },
       process.env.JWT_ACC_SECRET,
       {
-        expiresIn: process.env.JWT_ACC_LIFETIME,
+        expiresIn: "1d", //process.env.JWT_ACC_LIFETIME,
       }
     );
   };

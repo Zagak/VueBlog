@@ -91,13 +91,14 @@ const getAllComments = async (req, res) => {
 `;
 
       const result = await db.sequelize.query(sqlQuery);
-
+      console.log(result);
       const nestComments = (comments, parentId = null) => {
         return comments
           .filter((comment) => comment.parent_id === parentId)
           .map((comment) => ({
             ...comment,
             children: nestComments(comments, comment.id),
+            level: comment.level,
           }));
       };
 

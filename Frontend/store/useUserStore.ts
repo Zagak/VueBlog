@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 export const useUserStore = defineStore("user", () => {
   const accesTokenJWT = ref<string | null>(null);
+  const commentIdToReply = ref(0);
 
   const getAccesToken = () => {
     if (!accesTokenJWT.value) {
@@ -16,5 +17,18 @@ export const useUserStore = defineStore("user", () => {
     accesTokenJWT.value = accesToken;
   };
 
-  return { getAccesToken, setAccesToken };
+  const setCommentIdToReply = (commentId: number) => {
+    commentIdToReply.value = commentId;
+  };
+
+  const getCommentIdToReply = () => {
+    return commentIdToReply;
+  };
+
+  return {
+    getAccesToken,
+    setAccesToken,
+    setCommentIdToReply,
+    getCommentIdToReply,
+  };
 });

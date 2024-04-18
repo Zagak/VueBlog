@@ -18,10 +18,9 @@ export async function addComment(
 ) {
   const accesToken = store.getAccesToken();
 
-  const newComment = await $fetch(`${SERVER_URI}/api/v1/comment`, {
+  const newComment = await $fetch("/api/comment", {
     method: "POST",
     headers: {
-      ...useRequestHeaders(["cookie"]), // Spread the cookie header(s)
       Authorization: `Bearer ${accesToken.value}`, // Add the Authorization header
     },
     body: {
@@ -30,5 +29,6 @@ export async function addComment(
       CommentId: CommentId,
     },
   });
+
   return newComment;
 }

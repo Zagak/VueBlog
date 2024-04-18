@@ -37,11 +37,9 @@ export async function registerUser(
 }
 
 export async function getNewAccesToken() {
-  const { data } = await useAsyncData<any>("token", () =>
-    $fetch(`${SERVER_URI}/api/v1/auth/token`, {
-      credentials: "include",
-      method: "GET",
-      //headers: useRequestHeaders(['cookie']),
-    })
-  );
+  const data = await $fetch(`${SERVER_URI}/api/v1/auth/token`, {
+    credentials: "include",
+    method: "GET",
+    headers: useRequestHeaders(["cookie"]),
+  });
 }

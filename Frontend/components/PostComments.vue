@@ -48,17 +48,28 @@ const setAuthType = (type: string) => {
 
 const accesToken = userStore.getAccesToken();
 
-
-// const postComments: Array<IComment> = await showComments(props.postId);
-// const refPostComments: Ref<> = ref(null);
-// refPostComments.value = postComments;
-
 const postComments = ref(await showComments(props.postId));
 
-const addNewComment = async () => {
-  const newComment = await addComment(props.postId, commentValue.value, null)
+// async function getNewAccesToken() {
 
-  postComments.value.unshift(newComment);
+//   const data = await $fetch(`http://localhost:5000/api/v1/auth/token`, {
+//     credentials: "include",
+//     method: "GET",
+//     //headers: useRequestHeaders(['cookie']),
+//   });
+// }
+
+const addNewComment = async () => {
+  try {
+    const newComment = await addComment(props.postId, commentValue.value, null)
+    postComments.value.unshift(newComment);
+    commentValue.value = "";
+
+  }
+  catch (err) {
+    console.log(err);
+  }
+
 }
 
 </script>

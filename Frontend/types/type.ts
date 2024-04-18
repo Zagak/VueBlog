@@ -18,13 +18,14 @@ export type TypeContent = {
 export type ContentSkeleton = EntrySkeletonType<TypeContent, "content">;
 
 export type IComment = {
-  id: Number;
-  parent_id: Number;
-  text: String;
-  name: String;
-  UserId: Number;
-  postId: Number;
+  id: number;
+  parent_id: number;
+  text: string;
+  name: string;
+  UserId: number;
+  postId: number;
   createdAt: Date;
   updatedAt: Date;
   children: Array<IComment>;
+  level: number;
 };
