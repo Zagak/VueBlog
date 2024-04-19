@@ -34,6 +34,13 @@ import { showComments, addComment } from '../requestHandlers/comments';
 import { useUserStore } from "~/store/useUserStore"
 
 const userStore = useUserStore();
+const commentToShow = userStore.getLastCommentRef();
+
+watch(commentToShow, (newValue, oldValue) => {
+  console.log(`Count changed from ${oldValue} to ${newValue}`);
+  // Additional logic to handle the change
+  //Incearca sa faci un un nou array in locul lui postComments si lui ala sa-i dai slice in functie de deph level care vine de la Comment
+});
 
 const props = defineProps({
   postId: Number

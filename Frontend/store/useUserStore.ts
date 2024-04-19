@@ -1,8 +1,29 @@
 import { defineStore } from "pinia";
+import type { IComment } from "~/types/type";
 
 export const useUserStore = defineStore("user", () => {
   const accesTokenJWT = ref<string | null>(null);
   const commentIdToReply = ref(0);
+
+  let lastComment = 0;
+
+  const lastCommentRef = ref(0);
+
+  const getLastCommentRef = () => {
+    return lastCommentRef;
+  };
+
+  const setLastCommentRef = (commentId: number) => {
+    lastCommentRef.value = commentId;
+  };
+
+  const isLastComment = (cmt: IComment) => {
+    if (lastComment !== cmt.parent_id) {
+      lastComment = cmt.parent_id;
+      return true;
+    }
+    return false;
+  };
 
   const getAccesToken = () => {
     if (!accesTokenJWT.value) {
@@ -30,5 +51,8 @@ export const useUserStore = defineStore("user", () => {
     setAccesToken,
     setCommentIdToReply,
     getCommentIdToReply,
+    isLastComment,
+    setLastCommentRef,
+    getLastCommentRef,
   };
 });

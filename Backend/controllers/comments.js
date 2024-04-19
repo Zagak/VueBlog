@@ -15,6 +15,9 @@ const addComment = async (req, res) => {
   const UserId = req.user.userId;
   const UserName = req.user.name;
 
+  if (text === "" || !text)
+    throw new CustomError(StatusCodes.NO_CONTENT, "Comment cannot be empty");
+
   let newComment = null;
   if (CommentId) {
     const parentComment = await Comment.findOne({
