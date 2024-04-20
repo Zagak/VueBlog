@@ -4,8 +4,14 @@ const SERVER_URI = "http://localhost:5000";
 const store = useUserStore();
 
 export async function showComments(postId: number | undefined) {
+  const accesToken = store.getAccesToken();
+
   const { data } = await useAsyncData<any>("comments", () =>
-    $fetch(`${SERVER_URI}/api/v1/comment/data?postId=${postId}`)
+    $fetch(`${SERVER_URI}/api/v1/comment/data?postId=${postId}`, {
+      headers: {
+        Authorization: `Bearer ${accesToken}`, // Add the Authorization header
+      },
+    })
   );
   const { nestedComments } = data.value;
   return nestedComments;
@@ -21,7 +27,7 @@ export async function addComment(
   const newComment = await $fetch("/api/comment", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${accesToken.value}`, // Add the Authorization header
+      Authorization: `Bearer ${accesToken}`, // Add the Authorization header
     },
     body: {
       text: text,

@@ -3,11 +3,14 @@ const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
 
 const auth = async (req, res, next) => {
-  if (req.path === "/data" && req.method === "GET") {
-    return next();
-  }
-
   const authHeader = req.headers.authorization;
+  console.log(authHeader);
+  if (
+    req.path === "/data" &&
+    req.method === "GET" &&
+    authHeader.split(" ")[1] === "null"
+  )
+    return next();
 
   if (!authHeader || !authHeader.startsWith("Bearer")) {
     throw new CustomError(StatusCodes.UNAUTHORIZED, "Authentication invalid");

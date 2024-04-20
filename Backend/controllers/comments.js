@@ -2,12 +2,6 @@ const CustomError = require("../errors/custom-error");
 const db = require("../models");
 const Comment = db.comment;
 const { StatusCodes } = require("http-status-codes");
-const {
-  sortCommentsIntoMap,
-  addChildCommentsToParent,
-  setTopComments,
-} = require("../utils");
-const MockComment = require("../classes/MockComment");
 
 const addComment = async (req, res) => {
   const { text, postId, CommentId } = req.body;
@@ -54,6 +48,9 @@ const addComment = async (req, res) => {
 
 const getAllComments = async (req, res) => {
   const { postId } = req.query;
+  const userId = req.user?.userId;
+  console.log(userId);
+  const maximumLevel = 3;
 
   async function getCommentHierarchy() {
     try {
@@ -94,17 +91,20 @@ const getAllComments = async (req, res) => {
 `;
 
       const result = await db.sequelize.query(sqlQuery);
-      console.log(result);
-      const nestComments = (comments, parentId = null) => {
+
+      //TODO: Implemet caching with redis and more/less comment feature
+      const nestComments = (comments, currentDepth = 0, parentId = null) => {
+        //if (currentDepth === maximumLevel) return null;
         return comments
           .filter((comment) => comment.parent_id === parentId)
           .map((comment) => ({
             ...comment,
-            children: nestComments(comments, comment.id),
+            editable: userId ? comment.UserId == userId : false,
             level: comment.level,
+            children: nestComments(comments, comment.level, comment.id),
           }));
       };
-
+      //
       return nestComments(result[0]);
     } catch (error) {
       throw new CustomError(StatusCodes.BAD_GATEWAY, "Error executing SQL");

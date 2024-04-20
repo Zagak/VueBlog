@@ -19,7 +19,7 @@ export const useUserStore = defineStore("user", () => {
 
   const isLastComment = (cmt: IComment) => {
     if (lastComment !== cmt.parent_id) {
-      lastComment = cmt.parent_id;
+      lastComment = cmt.parent_id as number;
       return true;
     }
     return false;
@@ -30,7 +30,7 @@ export const useUserStore = defineStore("user", () => {
       const token = localStorage.getItem("accesToken");
       accesTokenJWT.value = token;
     }
-    return accesTokenJWT;
+    return accesTokenJWT.value;
   };
 
   const setAccesToken = (accesToken: string) => {

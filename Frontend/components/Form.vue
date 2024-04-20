@@ -40,10 +40,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from "~/store/useUserStore"
 import { logInUser, registerUser } from "~/requestHandlers/authentification";
 
-const userStore = useUserStore();
+const emit = defineEmits(["user-authenticated"]);
 
 const props = defineProps({
   authType: String
@@ -59,8 +58,11 @@ const form = {
 const submitForm = async () => {
   if (props.authType === "logIn") {
     await logInUser(form.email, form.password);
+    emit("user-authenticated");
+    console.log("event emmited")
   } else if (props.authType === "register") {
     await registerUser(form.name, form.email, form.password);
+    emit("user-authenticated");
   }
 }
 
