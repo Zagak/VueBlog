@@ -4,9 +4,10 @@ import type { IComment } from "~/types/type";
 export const useUserStore = defineStore("user", () => {
   const accesTokenJWT = ref<string | null>(null);
   const commentIdToReply = ref(0);
+  const commentIdToEdit = ref(0);
 
+  ///
   let lastComment = 0;
-
   const lastCommentRef = ref(0);
 
   const getLastCommentRef = () => {
@@ -25,6 +26,8 @@ export const useUserStore = defineStore("user", () => {
     return false;
   };
 
+  //used ones down there , and up experimental
+
   const getAccesToken = () => {
     if (!accesTokenJWT.value) {
       const token = localStorage.getItem("accesToken");
@@ -38,7 +41,17 @@ export const useUserStore = defineStore("user", () => {
     accesTokenJWT.value = accesToken;
   };
 
+  const setCommentIdToEdit = (commentId: number) => {
+    commentIdToReply.value = 0;
+    commentIdToEdit.value = commentId;
+  };
+
+  const getCommentIdToEdit = () => {
+    return commentIdToEdit;
+  };
+
   const setCommentIdToReply = (commentId: number) => {
+    commentIdToEdit.value = 0;
     commentIdToReply.value = commentId;
   };
 
@@ -51,6 +64,9 @@ export const useUserStore = defineStore("user", () => {
     setAccesToken,
     setCommentIdToReply,
     getCommentIdToReply,
+    setCommentIdToEdit,
+    getCommentIdToEdit,
+
     isLastComment,
     setLastCommentRef,
     getLastCommentRef,

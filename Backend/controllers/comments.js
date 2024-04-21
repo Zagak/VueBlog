@@ -38,9 +38,7 @@ const addComment = async (req, res) => {
       CommentId: null,
     });
   }
-  //console.log(newComment.dataValues);
-  console.log(newComment);
-  console.log({ ...newComment.dataValues, userName: UserName });
+
   return res
     .status(StatusCodes.OK)
     .json({ ...newComment.dataValues, name: UserName });
@@ -49,7 +47,7 @@ const addComment = async (req, res) => {
 const getAllComments = async (req, res) => {
   const { postId } = req.query;
   const userId = req.user?.userId;
-  console.log(userId);
+
   const maximumLevel = 3;
 
   async function getCommentHierarchy() {
@@ -124,19 +122,26 @@ const updateComment = async (req, res) => {
     where: { id: CommentId },
   });
 
-  if (userOfComment === userId) {
-    await Comment.update({ text: newText }, { where: { id: CommentId } });
+  let updatedComment = null;
 
-    return res.status(StatusCodes.OK).send("Comment modified succesfully");
+  if (userOfComment === userId) {
+    updatedComment = await Comment.update(
+      { text: newText },
+      { where: { id: CommentId } }
+    );
+
+    return res.status(StatusCodes.OK).json(newText);
   }
 
   throw new CustomError(StatusCodes.FORBIDDEN, "Cannot modify the comment");
 };
 
 const deleteComment = async (req, res) => {
+  console.log("s a apelat delete");
   const { userId } = req.user;
-  const { id: CommentId } = req.params;
 
+  const { id: CommentId } = req.params;
+  console.log(req.params.id);
   const { UserId: userOfComment } = await Comment.findOne({
     where: { id: CommentId },
   });

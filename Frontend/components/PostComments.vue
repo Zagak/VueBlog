@@ -40,7 +40,7 @@ const props = defineProps({
 });
 
 const commentValue = ref("");
-const postComments = ref([])
+const postComments = ref<IComment[]>([])
 
 const authType = ref("logIn")
 const setAuthType = (type: string) => {
