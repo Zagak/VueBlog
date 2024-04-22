@@ -2,13 +2,15 @@
   <!-- <button v-if="showButtonDown()" class="text-cyan-900 text-lg" @click="seeMoreReplies">
     See more replies ...
   </button> -->
-  <div v-show="isLevelDepthInRange()">
+  <!-- \!props.comment.deleted || (props.comment.deleted && props.comment.children[0]) -->
+  <div v-show="true">
     <section v-if="commentIdToEdit !== props.comment.id" class="p-5 bg-zinc-300 rounded-lg">
       <div class="flex justify-between">
         <p class="text-lg font-semibold">{{ $props.comment.name }}</p>
         <p class="text-sm">{{ useFormatDate($props.comment.createdAt) }}</p>
       </div>
-      <p>{{ props.comment.text }}</p>
+      <p v-if="props.comment.deleted" class="text-red-700">This comment has been deleted</p>
+      <p v-else>{{ props.comment.text }}</p>
       <div class="flex justify-between pt-3">
         <div v-if="props.comment.editable" class="space-x-5">
           <button @click="deleteYourComment">
@@ -64,6 +66,7 @@ const commentIdToEdit = userStore.getCommentIdToEdit();
 const commentSection = ref(0);
 const levelDepthPass = 3;
 
+//console.log(props.comment.deleted == true)
 const showButtonDown = () => {
   const isFirstChild = userStore.isLastComment(props.comment)
   return (props.comment.level == (levelDepthPass * (commentSection.value + 1)) + 1)
@@ -105,6 +108,7 @@ const closeReply = () => {
 
 const deleteYourComment = async () => {
   await deleteComment(props.comment.id);
+  props.comment.deleted = true;
 }
 
 const editYourComment = async () => {
@@ -128,6 +132,7 @@ const replyToComment = async () => {
     props.comment.children = [];
   }
   replyComment.editable = true;
+  replyComment.deleted = false;
   props.comment.children.unshift(replyComment);
   if (!props.comment.children[0].level) props.comment.children[0].level = props.comment.level + 1
   closeReply();

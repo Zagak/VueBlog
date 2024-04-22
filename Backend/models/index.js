@@ -1,43 +1,54 @@
-const { Sequelize } = require("sequelize");
+"use strict";
 
-const sequelize = new Sequelize(process.env.LOCAL_DB_URI, {
-  dialect: "postgres",
-  protocol: "postgres",
-  // dialectOptions: {
-  //   ssl: {
-  //     require: false, //change to true on production
-  //     rejectUnauthorized: false,
-  //   },
-  // },
+const fs = require("fs");
+const path = require("path");
+const Sequelize = require("sequelize");
+const process = require("process");
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../config/config.json")[env];
+const db = {};
+
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(
+    config.database,
+    config.username,
+    config.password,
+    config
+  );
+}
+
+fs.readdirSync(__dirname)
+  .filter((file) => {
+    return (
+      file.indexOf(".") !== 0 &&
+      file !== basename &&
+      file.slice(-3) === ".js" &&
+      file.indexOf(".test.js") === -1
+    );
+  })
+  .forEach((file) => {
+    const model = require(path.join(__dirname, file))(
+      sequelize,
+      Sequelize.DataTypes
+    );
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
 });
 
-// async function restart() {
-//   try {
-//     await sequelize.sync({ force: true });
-//     console.log("All models were synchronized successfully.");
-//   } catch (err) {
-//     console.error("Error restarting table:", err);
-//   }
-// }
-// restart();
-
-// async function dropTable() {
-//   try {
-//     await sequelize.query('DROP TABLE IF EXISTS "users";');
-//     await sequelize.query('DROP TABLE IF EXISTS "tokens";');
-//     console.log("Table dropped successfully.");
-//   } catch (error) {
-//     console.error("Error dropping table:", error);
-//   }
-// }
-// dropTable();
-
-const db = {};
+db.sequelize = sequelize;
 
 db.user = require("./User")(sequelize);
 db.token = require("./Token")(sequelize);
 db.comment = require("./Comment")(sequelize);
-db.sequelize = sequelize;
 
 db.user.hasMany(db.token);
 db.token.belongsTo(db.user, { foreignKey: "UserId" });

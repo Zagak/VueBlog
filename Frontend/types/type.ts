@@ -29,4 +29,5 @@ export type IComment = {
   children: Array<IComment>;
   level: number;
   editable: boolean;
+  deleted: boolean;
 };

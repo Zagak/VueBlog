@@ -24,15 +24,18 @@ export async function editComment(
 ): Promise<string> {
   const accesToken = store.getAccesToken();
 
-  const editedCommentText: string = await $fetch(`/api/comment/${commentId}`, {
-    method: "PATCH",
-    headers: {
-      Authorization: `Bearer ${accesToken}`, // Add the Authorization header
-    },
-    body: {
-      newText,
-    },
-  });
+  const editedCommentText: string = await $fetch(
+    `${SERVER_URI}/api/v1/comment/${commentId}`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${accesToken}`, // Add the Authorization header
+      },
+      body: {
+        newText,
+      },
+    }
+  );
 
   return editedCommentText;
 }
@@ -40,7 +43,7 @@ export async function editComment(
 export async function deleteComment(commentId: number): Promise<void> {
   const accesToken = store.getAccesToken();
 
-  await $fetch(`/api/comment/${commentId}`, {
+  await $fetch(`${SERVER_URI}/api/v1/comment/${commentId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${accesToken}`, // Add the Authorization header

@@ -1,6 +1,6 @@
 import { defineEventHandler, readBody, H3Event, EventHandlerRequest } from "h3";
 import { IComment } from "~/types/type";
-import withAuthorization from "../helpers/withAuthorization";
+import withAuthorization from "../../helpers/withAuthorization";
 
 const SERVER_URI = "http://localhost:5000";
 

@@ -39,7 +39,16 @@ const editCommentHandler = async (
   return editedCommentText;
 };
 
-export default {
-  DELETE: withAuthorization(deleteCommentHandler),
-  PATCH: withAuthorization(editCommentHandler),
+const commentHandler = async (
+  event: H3Event<EventHandlerRequest>
+): Promise<void> => {
+  if (event.node.req.method === "PATCH") {
+    await editCommentHandler(event);
+    console.log("editam");
+  } else if (event.node.req.method === "DELETE") {
+    await deleteCommentHandler(event);
+    console.log("stergem");
+  }
 };
+
+export default withAuthorization(commentHandler);

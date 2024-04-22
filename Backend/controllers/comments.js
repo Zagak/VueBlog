@@ -63,6 +63,7 @@ const getAllComments = async (req, res) => {
           c."postId", 
           c."createdAt", 
           c."updatedAt",
+          c."deleted",
           1 AS LEVEL
           FROM "Comments" c
           JOIN "Users" u ON c."UserId" = u."id"
@@ -79,6 +80,7 @@ const getAllComments = async (req, res) => {
           c."postId", 
           c."createdAt", 
           c."updatedAt",
+          c."deleted",
           ct.LEVEL + 1
           FROM "Comments" c
           JOIN CommentTree ct ON ct.id = c."CommentId"
@@ -98,6 +100,7 @@ const getAllComments = async (req, res) => {
           .map((comment) => ({
             ...comment,
             editable: userId ? comment.UserId == userId : false,
+            deleted: comment.deleted == "true" ? true : false,
             level: comment.level,
             children: nestComments(comments, comment.level, comment.id),
           }));
@@ -141,13 +144,39 @@ const deleteComment = async (req, res) => {
   const { userId } = req.user;
 
   const { id: CommentId } = req.params;
-  console.log(req.params.id);
-  const { UserId: userOfComment } = await Comment.findOne({
-    where: { id: CommentId },
-  });
 
+  const { UserId: userOfComment, CommentId: parentComment } =
+    await Comment.findOne({
+      where: { id: CommentId },
+    });
+
+  console.log(userOfComment);
+  console.log(userId);
   if (userOfComment === userId) {
-    await Comment.destroy({ where: { id: CommentId } });
+    //await Comment.destroy({ where: { id: CommentId } });//I need to decide when to delete for good and when to mark it
+
+    const commentChild = await Comment.findOne({
+      where: { CommentId: CommentId },
+    });
+    if (!commentChild) {
+      await Comment.destroy({ where: { id: CommentId } });
+
+      let parent;
+      // if (parentComment == null)
+      //   await Comment.destroy({ where: { id: parentComment } });
+      // else {
+      parent = await Comment.findOne({
+        where: { id: parentComment },
+      });
+
+      if (parent.deleted == "true")
+        await Comment.destroy({ where: { id: parent.id } });
+      //}
+    } else
+      await Comment.update(
+        { deleted: true, text: "" },
+        { where: { id: CommentId } }
+      );
 
     return res.status(StatusCodes.OK).send("Comment deleted succesfully");
   }
