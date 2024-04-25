@@ -143,41 +143,36 @@ const deleteComment = async (req, res) => {
   console.log("s a apelat delete");
   const { userId } = req.user;
 
-  const { id: CommentId } = req.params;
+  const { id } = req.params;
 
-  const { UserId: userOfComment, CommentId: parentComment } =
-    await Comment.findOne({
-      where: { id: CommentId },
-    });
+  const { UserId: userOfComment, CommentId } = await Comment.findOne({
+    where: { id: id },
+  });
 
-  console.log(userOfComment);
-  console.log(userId);
   if (userOfComment === userId) {
-    //await Comment.destroy({ where: { id: CommentId } });//I need to decide when to delete for good and when to mark it
-
-    const commentChild = await Comment.findOne({
-      where: { CommentId: CommentId },
+    const childsOfComment = await Comment.findOne({
+      where: {
+        CommentId: id,
+      },
     });
-    if (!commentChild) {
-      await Comment.destroy({ where: { id: CommentId } });
+    //verify if it has a childs ,if YES mark as deleted but don t actually delete it if NOT it can be deleted as it won't put in danger other comments
+    if (childsOfComment)
+      await Comment.update({ deleted: true }, { where: { id: id } });
+    else {
+      await Comment.destroy({ where: { id: id } });
 
-      let parent;
-      // if (parentComment == null)
-      //   await Comment.destroy({ where: { id: parentComment } });
-      // else {
-      parent = await Comment.findOne({
-        where: { id: parentComment },
+      //if I delete it for good I check if it also has a parent that is marked as deleted too  so I can delete it
+      const parentOfComment = await Comment.findOne({
+        where: {
+          id: CommentId,
+        },
       });
-
-      if (parent.deleted == "true")
-        await Comment.destroy({ where: { id: parent.id } });
-      //}
-    } else
-      await Comment.update(
-        { deleted: true, text: "" },
-        { where: { id: CommentId } }
-      );
-
+      console.log(parentOfComment.id);
+      if (parentOfComment.deleted === true) {
+        console.log("ma eu intru ?");
+        await Comment.destroy({ where: { id: parentOfComment.id } });
+      }
+    }
     return res.status(StatusCodes.OK).send("Comment deleted succesfully");
   }
   throw new CustomError(StatusCodes.FORBIDDEN, "Cannot delete the comment");
