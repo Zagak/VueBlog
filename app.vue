@@ -12,6 +12,9 @@ import * as contentful from 'contentful';
 
 const config = useRuntimeConfig()
 
+const pinia = createPinia();
+const nuxtApp = useNuxtApp()
+nuxtApp.vueApp.use(pinia);
 //
 const store = usePostsStore()
 await store.fetchCats()
