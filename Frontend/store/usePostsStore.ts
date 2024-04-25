@@ -6,16 +6,6 @@ import axios from "axios";
 
 export const usePostsStore = defineStore("posts", () => {
   const posts: Entry<PostSkeleton>[] = [];
-  const cats = ref([]);
-
-  const fetchCats = async () => {
-    const { data, pending, error, refresh } = await useFetch(
-      "https://cat-fact.herokuapp.com/facts",
-      {}
-    );
-    cats.value = data.value;
-    //console.log(cats.value);
-  };
 
   const fetchPosts = async (client: ContentfulClientApi<undefined>) => {
     if (posts.length !== 0) return;
@@ -30,14 +20,6 @@ export const usePostsStore = defineStore("posts", () => {
     });
   };
 
-  // const getPosts = async (client: ContentfulClientApi<undefined>) => {
-  //   if (posts.length !== 0) return posts
-  //   else {
-  //     await fetchPosts(client)
-  //     return posts
-  //   }
-  // }
-
   const getByCategory = (category: string) =>
     posts.filter((post) => post.fields.category === category);
 
@@ -50,7 +32,5 @@ export const usePostsStore = defineStore("posts", () => {
     fetchPosts,
     getGuidesPosts,
     getReviewsPosts,
-    cats,
-    fetchCats,
   };
 });

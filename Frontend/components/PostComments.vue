@@ -29,7 +29,6 @@
 <script lang="ts" setup>
 import type { IComment } from '../types/type';
 import Form from './Form.vue';
-import { showComments, addComment } from '../requestHandlers/comments';
 
 import { useUserStore } from "~/store/useUserStore"
 
@@ -58,42 +57,10 @@ const getAllComments = async () => {
     console.log(err)
   }
 }
-getAllComments();
 
-console.log(postComments)
-const visiblePostComments = ref<IComment[]>([]);
-
-const commentToShow = userStore.getLastCommentRef();
-
-// const visibleComments = (comments: IComment[], parentId: number | null = null): IComment[] => {
-//   if (parentId === commentToShow.value) return null as unknown as IComment[];
-//   return comments
-//     .filter((comment) => comment.parent_id === parentId)
-//     .map((comment) => ({
-//       ...comment,
-//       children: visibleComments(comments, comment.id),
-//     }));
-// };
-
-watchEffect(() => {
-  //console.log(`Count changed from ${oldValue} to ${newValue}`);
-  console.log("been called")
-  // Additional logic to handle the change
-  //Incearca sa faci un un nou array in locul lui postComments si lui ala sa-i dai slice in functie de deph level care vine de la Comment
-  //visiblePostComments.value = visibleComments(postComments.value);
-  //visiblePostComments.value = visibleComments(postComments.value, null, 0, 2, 5);
-
-  //console.log(visiblePostComments.value)
-});
-
-// async function getNewAccesToken() {
-
-//   const data = await $fetch(`http://localhost:5000/api/v1/auth/token`, {
-//     credentials: "include",
-//     method: "GET",
-//     //headers: useRequestHeaders(['cookie']),
-//   });
-// }
+onMounted(() => {
+  getAllComments();
+})
 
 const addNewComment = async () => {
   try {

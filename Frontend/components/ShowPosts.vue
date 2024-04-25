@@ -10,7 +10,7 @@
         <div class="text-left py-5 sm:flex border-t-2 border-black">
           <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="'/posts/' + post.fields.slug">{{
             post.fields.title
-            }}
+          }}
           </NuxtLink>
           <p class=" text-left sm:w-1/4 sm:ml-10 mt-5 sm:mt-0">{{ useFormatDate(post.fields.dateOfPosting.toString()) }}
             -

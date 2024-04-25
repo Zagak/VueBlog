@@ -2,19 +2,22 @@ import { useUserStore } from "~/store/useUserStore";
 import type { IComment } from "~/types/type";
 
 const SERVER_URI = "http://localhost:5000";
-const store = useUserStore();
 
 export async function showComments(postId: number | undefined) {
+  const store = useUserStore();
   const accesToken = store.getAccesToken();
 
-  const { data } = await useAsyncData<any>("comments", () =>
-    $fetch(`${SERVER_URI}/api/v1/comment/data?postId=${postId}`, {
-      headers: {
-        Authorization: `Bearer ${accesToken}`, // Add the Authorization header
-      },
-    })
+  const data = await $fetch<any>(
+    `${SERVER_URI}/api/v1/comment/data?postId=${postId}`,
+    {
+      headers: accesToken
+        ? {
+            Authorization: `Bearer ${accesToken}`, // Add the Authorization header
+          }
+        : {},
+    }
   );
-  const { nestedComments } = data.value;
+  const { nestedComments } = data;
   return nestedComments;
 }
 
@@ -22,6 +25,7 @@ export async function editComment(
   newText: string,
   commentId: number
 ): Promise<string> {
+  const store = useUserStore();
   const accesToken = store.getAccesToken();
 
   const editedCommentText: string = await $fetch(
@@ -41,6 +45,7 @@ export async function editComment(
 }
 
 export async function deleteComment(commentId: number): Promise<void> {
+  const store = useUserStore();
   const accesToken = store.getAccesToken();
 
   await $fetch(`${SERVER_URI}/api/v1/comment/${commentId}`, {
@@ -56,6 +61,7 @@ export async function addComment(
   text: String,
   CommentId: Number | null
 ): Promise<IComment> {
+  const store = useUserStore();
   const accesToken = store.getAccesToken();
 
   const newComment: IComment = await $fetch("/api/comment", {

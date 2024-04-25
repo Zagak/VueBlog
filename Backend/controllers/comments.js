@@ -48,8 +48,6 @@ const getAllComments = async (req, res) => {
   const { postId } = req.query;
   const userId = req.user?.userId;
 
-  const maximumLevel = 3;
-
   async function getCommentHierarchy() {
     try {
       const sqlQuery = `
@@ -94,7 +92,6 @@ const getAllComments = async (req, res) => {
 
       //TODO: Implemet caching with redis and more/less comment feature
       const nestComments = (comments, currentDepth = 0, parentId = null) => {
-        //if (currentDepth === maximumLevel) return null;
         return comments
           .filter((comment) => comment.parent_id === parentId)
           .map((comment) => ({

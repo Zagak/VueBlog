@@ -4,11 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const auth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
-  if (
-    req.path === "/data" &&
-    req.method === "GET" &&
-    authHeader.split(" ")[1] === "null"
-  )
+  if (req.path === "/data" && req.method === "GET" && !authHeader)
     return next();
 
   if (!authHeader || !authHeader.startsWith("Bearer")) {

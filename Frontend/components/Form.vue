@@ -40,7 +40,6 @@
 </template>
 
 <script lang="ts" setup>
-import { logInUser, registerUser } from "~/requestHandlers/authentification";
 
 const emit = defineEmits(["user-authenticated"]);
 

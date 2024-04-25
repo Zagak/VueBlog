@@ -1,9 +1,9 @@
 import { useUserStore } from "~/store/useUserStore";
 
 const SERVER_URI = "http://localhost:5000";
-const userStore = useUserStore();
 
 export async function logInUser(email: string, password: string) {
+  const userStore = useUserStore();
   const { accesToken } = await $fetch<{ accesToken: string }>(
     `${SERVER_URI}/api/v1/auth/login`,
     {
@@ -22,6 +22,7 @@ export async function registerUser(
   email: string,
   password: string
 ) {
+  const userStore = useUserStore();
   const { accesToken } = await $fetch<{ accesToken: string }>(
     `${SERVER_URI}/api/v1/auth/register`,
     {
