@@ -7,6 +7,7 @@
 </template>
 
 <script setup>
+import { createPinia } from 'pinia';
 import { usePostsStore } from '../store/usePostsStore';
 import * as contentful from 'contentful';
 
