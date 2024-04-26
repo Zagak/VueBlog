@@ -1,0 +1,60 @@
+[33m7bf736c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/backend[m[33m, [m[1;32mbackend[m[33m)[m added some fixes
+[33mdd1adeb[m fixed app error 500 that keeep appearing
+[33mdc457b1[m made the comment delete logic
+[33m609a5f8[m working on backend logic
+[33m4825ced[m implemented patch and delete
+[33m8eb8a4b[m added frontend logic for comment modification
+[33mfa5718a[m more progress
+[33md143f3c[m implemented reply feature
+[33m408d54a[m solved the auth bug
+[33m72c9449[m more progress in integrating the backend
+[33m7a4995c[m Progress on implementing the backend on frontend
+[33m2c5db56[m Finished backend and displaying comments on the frontend
+[33m0dbeed3[m Added hierarhical json return
+[33m0ad1284[m progress
+[33m7d6cf50[m added token regeneration and started working at comments hierarhical retrival
+[33m45e159b[m authentification
+[33m6b383d3[m connected to the db and basic logic added
+[33mc00016f[m refactorized
+[33m39833d0[m changed folders hierarchy
+[33m21cd7d8[m started to work at the backend
+[33m900f004[m[33m ([m[1;31morigin/main[m[33m)[m 10
+[33ma8f503e[m 9
+[33mcfb1cc3[m 8
+[33m063ed87[m 7
+[33mabea2c4[m 6
+[33m73fa351[m revert 5
+[33m7572255[m 5
+[33m32ffe43[m 4
+[33md8e2423[m 3
+[33m2e9b37d[m 2
+[33mee363d1[m 1
+[33mf98a812[m using loading state
+[33m4dbe25d[m revert
+[33m98b1906[m added fetch to ShowPosts
+[33m1f289d2[m added fetch logic in index.vue
+[33m14c47be[m bugfix -> fixed prev on page 1 showing nothing
+[33m4a73ca8[m test -> contentfull client creation in beforeMount hook
+[33m92e5263[m revert
+[33mddf031a[m test -> keys directly in
+[33m917c591[m test -> no CMS request on root again
+[33m50d2ebf[m test -> no CMS request on root
+[33me8eaac1[m added onBeforeMount instead
+[33mf0c6052[m added fetch onMounted
+[33m334f656[m redo
+[33m95a895f[m again 1
+[33mc0beab2[m undo
+[33m8e550c4[m again
+[33m20fe0fa[m moved fetch in index
+[33m51d18dc[m readded error.vue
+[33me150e0d[m logo image sized
+[33mf14cae6[m changed contentful way of importing
+[33mb2044e4[m made post template page
+[33mecec727[m Added route
+[33m0055e41[m Made list of posts component
+[33mc1dff8a[m Merge branch 'main' of https://github.com/Zagak/VueBlog
+[33m0ff4e1b[m added Pinia store
+[33m88f4921[m Update README.md
+[33m5df935d[m Update README.md
+[33m38c07b9[m Added env for Contentful
+[33mc558057[m first commit
