@@ -40,14 +40,13 @@
 </template>
 
 <script lang="ts" setup>
-
 const emit = defineEmits(["user-authenticated"]);
 
 const props = defineProps({
   authType: String
 });
 
-const SERVER_URI = "http://localhost:5000";
+
 const form = {
   name: "",
   email: "",

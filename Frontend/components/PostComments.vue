@@ -48,6 +48,10 @@ const setAuthType = (type: string) => {
 
 const accesToken = ref<string | null>("");
 
+const getAccesToken = async () => {
+  await getNewAccesToken();
+}
+
 const getAllComments = async () => {
   console.log("Comments displayed")
   accesToken.value = userStore.getAccesToken();

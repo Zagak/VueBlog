@@ -1,7 +1,6 @@
 import { H3Event } from "h3";
-import { IComment } from "~/types/type";
 
-const SERVER_URI = "http://localhost:5000";
+const config = useRuntimeConfig();
 
 const withAuthorization = (handler: (event: H3Event) => Promise<any>) => {
   return defineEventHandler(async (event) => {
@@ -14,11 +13,14 @@ const withAuthorization = (handler: (event: H3Event) => Promise<any>) => {
       console.log(error.status);
       if (error.status === 401) {
         //return await $fetch("/auth/token");
-        const newAccesToken = await $fetch(`${SERVER_URI}/api/v1/auth/token`, {
-          credentials: "include",
-          method: "GET",
-          //headers: useRequestHeaders(["cookie"]),
-        });
+        const newAccesToken = await $fetch(
+          `${config.public.SERVER_URI}/api/v1/auth/token`,
+          {
+            credentials: "include",
+            method: "GET",
+            //headers: useRequestHeaders(["cookie"]),
+          }
+        );
         console.log("am obtinut token");
         return newAccesToken;
       }

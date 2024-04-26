@@ -105,7 +105,7 @@ const getAllComments = async (req, res) => {
       //
       return nestComments(result[0]);
     } catch (error) {
-      throw new CustomError(StatusCodes.BAD_GATEWAY, "Error executing SQL");
+      throw new CustomError(StatusCodes.BAD_GATEWAY, error.message);
     }
   }
 

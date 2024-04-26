@@ -14,12 +14,21 @@ module.exports = (sequelize) => {
       type: DataTypes.SMALLINT,
       allowNull: false,
     },
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Users",
+        key: "id",
+      },
+    },
+    CommentId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Comments",
+        key: "id",
+      },
+    },
   });
-
-  (async () => {
-    await sequelize.sync();
-    // Code here
-  })();
 
   return Comment;
 };

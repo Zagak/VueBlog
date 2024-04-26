@@ -16,7 +16,6 @@
     "@nuxtjs/dotenv": "^1.4.2",
     "@pinia/nuxt": "^0.5.1",
     "autoprefixer": "^10.4.16",
-    "axios": "^1.6.8",
     "contentful": "^10.6.16",
     "contentful-rich-text-vue-renderer": "^3.1.0",
     "nuxt": "^3.9.1",

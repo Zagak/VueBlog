@@ -1,14 +1,13 @@
 import { useUserStore } from "~/store/useUserStore";
 import type { IComment } from "~/types/type";
 
-const SERVER_URI = "http://localhost:5000";
-
+const config = useRuntimeConfig();
 export async function showComments(postId: number | undefined) {
   const store = useUserStore();
   const accesToken = store.getAccesToken();
 
   const data = await $fetch<any>(
-    `${SERVER_URI}/api/v1/comment/data?postId=${postId}`,
+    `${config.public.SERVER_URI}/api/v1/comment/data?postId=${postId}`,
     {
       headers: accesToken
         ? {
@@ -29,7 +28,7 @@ export async function editComment(
   const accesToken = store.getAccesToken();
 
   const editedCommentText: string = await $fetch(
-    `${SERVER_URI}/api/v1/comment/${commentId}`,
+    `${config.public.SERVER_URI}/api/v1/comment/${commentId}`,
     {
       method: "PATCH",
       headers: {
@@ -48,7 +47,7 @@ export async function deleteComment(commentId: number): Promise<void> {
   const store = useUserStore();
   const accesToken = store.getAccesToken();
 
-  await $fetch(`${SERVER_URI}/api/v1/comment/${commentId}`, {
+  await $fetch(`${config.public.SERVER_URI}/api/v1/comment/${commentId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${accesToken}`, // Add the Authorization header

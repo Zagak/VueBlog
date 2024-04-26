@@ -7,12 +7,14 @@ module.exports = (sequelize) => {
       unique: true,
       primaryKey: true,
     },
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Users",
+        key: "id",
+      },
+    },
   });
-
-  (async () => {
-    await sequelize.sync();
-    // Code here
-  })();
 
   return Token;
 };

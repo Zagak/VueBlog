@@ -51,10 +51,10 @@ module.exports = (sequelize) => {
     user.password = hashedPassword;
   });
 
-  (async () => {
-    await sequelize.sync();
-    // Code here
-  })();
+  // (async () => {
+  //   await sequelize.sync();
+  //   // Code here
+  // })();
 
   return User;
 };

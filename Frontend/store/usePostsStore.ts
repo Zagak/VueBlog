@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import type { Entry, ContentfulClientApi } from "contentful";
 import type { PostSkeleton } from "~/types/type";
 import { PostCategory } from "~/types/enum";
-import axios from "axios";
 
 export const usePostsStore = defineStore("posts", () => {
   const posts: Entry<PostSkeleton>[] = [];

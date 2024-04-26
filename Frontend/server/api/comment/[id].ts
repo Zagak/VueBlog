@@ -1,6 +1,7 @@
-const SERVER_URI = "http://localhost:5000";
 import { H3Event, EventHandlerRequest } from "h3";
 import withAuthorization from "../../helpers/withAuthorization";
+
+const config = useRuntimeConfig();
 
 const deleteCommentHandler = async (
   event: H3Event<EventHandlerRequest>
@@ -8,7 +9,7 @@ const deleteCommentHandler = async (
   const commentId = event?.context?.params?.id;
   const authorizationHeader = event.node.req.headers.authorization;
 
-  await $fetch(`${SERVER_URI}/api/v1/comment/${commentId}`, {
+  await $fetch(`${config.public.SERVER_URI}/api/v1/comment/${commentId}`, {
     method: "DELETE",
     headers: {
       ...(authorizationHeader ? { Authorization: authorizationHeader } : {}),
@@ -24,7 +25,7 @@ const editCommentHandler = async (
   const authorizationHeader = event.node.req.headers.authorization;
 
   const editedCommentText: string = await $fetch(
-    `${SERVER_URI}/api/v1/comment/${commentId}`,
+    `${config.public.SERVER_URI}/api/v1/comment/${commentId}`,
     {
       method: "PATCH",
       headers: {

@@ -50,12 +50,24 @@ db.user = require("./User")(sequelize);
 db.token = require("./Token")(sequelize);
 db.comment = require("./Comment")(sequelize);
 
-db.user.hasMany(db.token);
-db.token.belongsTo(db.user, { foreignKey: "UserId" });
+(async () => {
+  try {
+    // Synchronize all models at once
+    await sequelize.sync();
 
-db.user.hasMany(db.comment);
-db.comment.belongsTo(db.user, { foreignKey: "UserId" });
+    // Tables associations
+    db.user.hasMany(db.token);
+    db.token.belongsTo(db.user, { foreignKey: "UserId" });
 
-db.comment.hasMany(db.comment, { foreignKey: "CommentId" });
+    db.user.hasMany(db.comment);
+    db.comment.belongsTo(db.user, { foreignKey: "UserId" });
+
+    db.comment.hasMany(db.comment, { foreignKey: "CommentId" });
+
+    console.log("All tables created successfully");
+  } catch (error) {
+    console.error("Error during table creation", error);
+  }
+})();
 
 module.exports = db;

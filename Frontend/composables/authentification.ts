@@ -1,11 +1,11 @@
 import { useUserStore } from "~/store/useUserStore";
 
-const SERVER_URI = "http://localhost:5000";
+const config = useRuntimeConfig();
 
 export async function logInUser(email: string, password: string) {
   const userStore = useUserStore();
   const { accesToken } = await $fetch<{ accesToken: string }>(
-    `${SERVER_URI}/api/v1/auth/login`,
+    `${config.public.SERVER_URI}/api/v1/auth/login`,
     {
       method: "POST",
       body: {
@@ -24,7 +24,7 @@ export async function registerUser(
 ) {
   const userStore = useUserStore();
   const { accesToken } = await $fetch<{ accesToken: string }>(
-    `${SERVER_URI}/api/v1/auth/register`,
+    `${config.public.SERVER_URI}/api/v1/auth/register`,
     {
       method: "POST",
       body: {
@@ -38,7 +38,7 @@ export async function registerUser(
 }
 
 export async function getNewAccesToken() {
-  const data = await $fetch(`${SERVER_URI}/api/v1/auth/token`, {
+  const data = await $fetch(`${config.public.SERVER_URI}/api/v1/auth/token`, {
     credentials: "include",
     method: "GET",
     headers: useRequestHeaders(["cookie"]),

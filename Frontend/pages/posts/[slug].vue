@@ -20,7 +20,6 @@ import { usePostsStore } from '~/store/usePostsStore';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 import type { Hyperlink, Paragraph, Heading2, ListItem, AssetHyperlink } from '@contentful/rich-text-types';
-import axios from 'axios';
 import PostComments from '~/components/PostComments.vue';
 
 function renderMarks() {
