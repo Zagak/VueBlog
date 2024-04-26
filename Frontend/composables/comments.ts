@@ -2,6 +2,7 @@ import { useUserStore } from "~/stores/useUserStore";
 import type { IComment } from "~/types/type";
 
 const config = useRuntimeConfig();
+
 export async function showComments(postId: number | undefined) {
   const store = useUserStore();
   const accesToken = store.getAccesToken();

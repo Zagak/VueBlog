@@ -18,10 +18,8 @@ const contentfulClient = contentful.createClient({
   accessToken: config.public.CONTENTFUL_ACCES_KEY,
 })
 
-//await useAsyncData('posts', () => store.fetchPosts(contentfulClient).then(() => true))
+await useAsyncData('posts', () => store.fetchPosts().then((res) => store.setAllPosts(res)))
 
-await getCMScomments(contentfulClient);
-
-//await store.fetchPosts(contentfulClient)
+//await store.fetchPosts()
 
 </script>
