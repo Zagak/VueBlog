@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { usePostsStore } from './store/usePostsStore';
+import { usePostsStore } from './stores/usePostsStore';
 import * as contentful from 'contentful';
 
 const config = useRuntimeConfig()
@@ -20,6 +20,8 @@ const contentfulClient = contentful.createClient({
 
 //await useAsyncData('posts', () => store.fetchPosts(contentfulClient).then(() => true))
 
-await store.fetchPosts(contentfulClient)
+await getCMScomments(contentfulClient);
+
+//await store.fetchPosts(contentfulClient)
 
 </script>

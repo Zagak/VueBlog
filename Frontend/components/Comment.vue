@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 
 import type { IComment } from '../types/type.js';
-import { useUserStore } from '../store/useUserStore.js'
+import { useUserStore } from '../stores/useUserStore.js'
 
 const props = defineProps<{
   comment: IComment;

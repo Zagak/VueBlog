@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import * as contentful from 'contentful';
 import type { ContentSkeleton, IComment } from '~/types/type';
-import { usePostsStore } from '~/store/usePostsStore';
+import { usePostsStore } from '~/stores/usePostsStore';
 import RichTextRenderer from 'contentful-rich-text-vue-renderer';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 import type { Hyperlink, Paragraph, Heading2, ListItem, AssetHyperlink } from '@contentful/rich-text-types';

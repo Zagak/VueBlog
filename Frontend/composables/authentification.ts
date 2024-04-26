@@ -1,4 +1,4 @@
-import { useUserStore } from "~/store/useUserStore";
+import { useUserStore } from "~/stores/useUserStore";
 
 const config = useRuntimeConfig();
 

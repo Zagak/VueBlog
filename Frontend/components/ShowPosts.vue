@@ -31,9 +31,11 @@
 </template>
 
 <script lang="ts" setup>
-import { usePostsStore } from "~/store/usePostsStore"
+import { usePostsStore } from "~/stores/usePostsStore"
 import type { Entry } from 'contentful';
 import type { PostSkeleton } from '~/types/type';
+
+
 
 const props = defineProps({
   category: String,
@@ -45,6 +47,7 @@ const props = defineProps({
 
 const store = usePostsStore()
 let posts: Entry<PostSkeleton>[] = reactive(store.posts);
+
 let pages: number;
 const selectedPage = ref(1);
 

@@ -30,7 +30,7 @@
 import type { IComment } from '../types/type';
 import Form from './Form.vue';
 
-import { useUserStore } from "~/store/useUserStore"
+import { useUserStore } from "~/stores/useUserStore"
 
 const userStore = useUserStore();
 
@@ -62,8 +62,8 @@ const getAllComments = async () => {
   }
 }
 
-onMounted(() => {
-  getAllComments();
+onMounted(async () => {
+  await getAllComments();
 })
 
 const addNewComment = async () => {

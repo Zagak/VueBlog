@@ -1,4 +1,4 @@
-import { useUserStore } from "~/store/useUserStore";
+import { useUserStore } from "~/stores/useUserStore";
 import type { IComment } from "~/types/type";
 
 const config = useRuntimeConfig();

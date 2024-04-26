@@ -7,6 +7,7 @@ export const usePostsStore = defineStore("posts", () => {
   const posts: Entry<PostSkeleton>[] = [];
 
   const fetchPosts = async (client: ContentfulClientApi<undefined>) => {
+    console.log("facem rost de posts");
     if (posts.length !== 0) return;
 
     const res = await client.getEntries<PostSkeleton>({
@@ -15,6 +16,12 @@ export const usePostsStore = defineStore("posts", () => {
     });
 
     res.items.forEach((post) => {
+      posts.push(post);
+    });
+  };
+
+  const setAllPosts = (allPosts: Entry<PostSkeleton, undefined, string>[]) => {
+    allPosts.forEach((post) => {
       posts.push(post);
     });
   };
@@ -31,5 +38,6 @@ export const usePostsStore = defineStore("posts", () => {
     fetchPosts,
     getGuidesPosts,
     getReviewsPosts,
+    setAllPosts,
   };
 });

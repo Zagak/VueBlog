@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import type { Entry } from "contentful";
-import { usePostsStore } from "~/store/usePostsStore";
+import { usePostsStore } from "~/stores/usePostsStore";
 import type { PostSkeleton } from "~/types/type";
 
 const props = defineProps({
