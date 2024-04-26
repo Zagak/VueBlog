@@ -9,6 +9,7 @@ export async function showComments(postId: number | undefined) {
   const data = await $fetch<any>(
     `${config.public.SERVER_URI}/api/v1/comment/data?postId=${postId}`,
     {
+      mode: "no-cors",
       headers: accesToken
         ? {
             Authorization: `Bearer ${accesToken}`, // Add the Authorization header

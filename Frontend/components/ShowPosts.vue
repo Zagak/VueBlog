@@ -1,11 +1,6 @@
 <template>
   <div class="mx-20">
     <ul>
-      <li v-for="item in cats" :key="item">
-        <p>{{ item.text }}</p>
-      </li>
-    </ul>
-    <ul>
       <li v-for="post in pagesPosts" :key="post.sys.id">
         <div class="text-left py-5 sm:flex border-t-2 border-black">
           <NuxtLink class=" text-left sm:w-3/4 font-normal text-xl" :to="'/posts/' + post.fields.slug">{{
@@ -40,8 +35,6 @@ import { usePostsStore } from "~/store/usePostsStore"
 import type { Entry } from 'contentful';
 import type { PostSkeleton } from '~/types/type';
 
-
-
 const props = defineProps({
   category: String,
   numberOfElements: {
@@ -54,18 +47,6 @@ const store = usePostsStore()
 let posts: Entry<PostSkeleton>[] = reactive(store.posts);
 let pages: number;
 const selectedPage = ref(1);
-
-// ////////////////////
-const cats = store.cats
-//console.log(cats.text)
-// onMounted(() => {
-//   if (props.category === PostCategory.Guides) posts = store.getGuidesPosts
-//   else if (props.category === PostCategory.Reviews) posts = store.getReviewsPosts
-//   else posts = store.posts
-
-//   console.log(posts)
-// })
-// ////////////////////
 
 //console.log(posts)
 pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
