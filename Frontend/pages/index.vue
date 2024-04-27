@@ -1,10 +1,9 @@
 <template>
-  <Welcome />
+  <Home />
 </template>
 
 <script setup>
 import Home from '~/pages/Home.vue'
-import Welcome from './Welcome.vue';
 
 // import { usePostsStore } from '../stores/usePostsStore';
 // import * as contentful from 'contentful';
