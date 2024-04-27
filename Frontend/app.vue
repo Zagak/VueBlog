@@ -13,12 +13,12 @@ import * as contentful from 'contentful';
 const config = useRuntimeConfig()
 const store = usePostsStore()
 
-const contentfulClient = contentful.createClient({
-  space: config.public.CONTENTFUL_SPACE_ID,
-  accessToken: config.public.CONTENTFUL_ACCES_KEY,
-})
+// const contentfulClient = contentful.createClient({
+//   space: config.public.CONTENTFUL_SPACE_ID,
+//   accessToken: config.public.CONTENTFUL_ACCES_KEY,
+// })
 
-await useAsyncData('posts', () => store.fetchPosts().then(() => true))
+//await useAsyncData('posts', () => store.fetchPosts().then(() => true))
 
 //await store.fetchPosts()
 
