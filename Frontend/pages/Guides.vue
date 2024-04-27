@@ -6,7 +6,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { PostCategory } from '~/types/enum';
 
 
 </script>
