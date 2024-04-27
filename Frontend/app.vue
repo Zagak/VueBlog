@@ -18,7 +18,7 @@ const contentfulClient = contentful.createClient({
   accessToken: config.public.CONTENTFUL_ACCES_KEY,
 })
 
-await useAsyncData('posts', () => store.fetchPosts().then((res) => store.setAllPosts(res)))
+await useAsyncData('posts', () => store.fetchPosts().then(() => true))
 
 //await store.fetchPosts()
 
