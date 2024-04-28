@@ -3,6 +3,8 @@ import type { Entry, ContentfulClientApi } from "contentful";
 import type { PostSkeleton } from "~/types/type";
 import { PostCategory } from "~/types/enum";
 
+const config = useRuntimeConfig();
+
 export const usePostsStore = defineStore("posts", () => {
   let posts: Entry<PostSkeleton>[] = [];
 
@@ -18,7 +20,7 @@ export const usePostsStore = defineStore("posts", () => {
 
     const { data } = await useAsyncData("posts", () =>
       $fetch(
-        "https://cdn.contentful.com/spaces/bbbsu85qq7pj/entries?access_token=KGVlTF0t-AfMsE2-jVv6fwdTAsFMjavXqIgdx9go6NY&content_type=blogPost"
+        `https://cdn.contentful.com/${config.public.CONTENTFUL_SPACE_ID}/bbbsu85qq7pj/entries?access_token=${config.public.CONTENTFUL_ACCES_KEY}&content_type=blogPost`
       )
     );
     //posts = data.value.items;

@@ -45,26 +45,20 @@ const props = defineProps({
   },
 })
 
-// const store = usePostsStore()
-// let posts: Entry<PostSkeleton>[] = store.getAllPosts();
-
-const { data } = await useAsyncData("posts", () =>
-  $fetch(
-    "https://cdn.contentful.com/spaces/bbbsu85qq7pj/entries?access_token=KGVlTF0t-AfMsE2-jVv6fwdTAsFMjavXqIgdx9go6NY&content_type=blogPost"
-  )
-);
+const store = usePostsStore()
+let posts: Entry<PostSkeleton>[] = store.getAllPosts();
 
 let pages: number;
 const selectedPage = ref(1);
 
-//console.log(store.posts)
+console.log(store.posts)
 onMounted(() => {
-  //console.log(store.posts)
+  console.log(store.posts)
 })
-pages = Math.floor((data.value.items.length / (props.numberOfElements + 1) + 1))
+pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 
 const pagesPosts = computed(() => {
-  return data.value.items.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
+  return posts.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
 });
 
 //console.log(pagesPosts.value)

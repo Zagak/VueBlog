@@ -20,6 +20,6 @@ const store = usePostsStore()
 
 //await useAsyncData('posts', () => store.fetchPosts().then(() => true))
 
-//await store.fetchPosts()
+await store.fetchPosts()
 
 </script>
