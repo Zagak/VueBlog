@@ -19,7 +19,7 @@ const props = defineProps({
 })
 
 const store = usePostsStore();
-const posts: Entry<PostSkeleton>[] = store.posts
+const posts: Entry<PostSkeleton>[] = store.getAllPosts();
 
 const currentPostIndex = posts.findIndex((post) => post.fields.slug === props.slug)
 

@@ -51,9 +51,9 @@ let posts: Entry<PostSkeleton>[] = store.getAllPosts();
 let pages: number;
 const selectedPage = ref(1);
 
-console.log(store.posts)
+console.log(posts)
 onMounted(() => {
-  console.log(store.posts)
+  console.log(posts)
 })
 pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 
