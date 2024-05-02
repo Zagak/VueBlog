@@ -4,11 +4,11 @@ import type { PostSkeleton } from "~/types/type";
 import { PostCategory } from "~/types/enum";
 
 export const usePostsStore = defineStore("posts", () => {
-  const config = useRuntimeConfig();
   let posts: Entry<PostSkeleton>[] = [];
 
   const fetchPosts = async (client: ContentfulClientApi<undefined>) => {
-    //
+    const config = useRuntimeConfig();
+    //client: ContentfulClientApi<undefined>
     console.log("facem rost de posts");
     if (posts.length !== 0) return;
 
@@ -17,11 +17,6 @@ export const usePostsStore = defineStore("posts", () => {
       order: "-sys.createdAt",
     });
 
-    // const { data } = await useAsyncData("posts", () =>
-    //   $fetch(
-    //     `https://cdn.contentful.com/spaces/${config.public.CONTENTFUL_SPACE_ID}/entries?access_token=${config.public.CONTENTFUL_ACCES_KEY}&content_type=blogPost`
-    //   )
-    // );
     posts = res.items;
   };
 

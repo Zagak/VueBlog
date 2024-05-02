@@ -21,5 +21,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+
   modules: ["@nuxt/image", "@pinia/nuxt"],
 });

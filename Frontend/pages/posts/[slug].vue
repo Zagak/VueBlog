@@ -59,14 +59,14 @@ function renderNodes() {
 
 const route = useRoute()
 const config = useRuntimeConfig()
-const contentfulClient = contentful.createClient({
-  space: config.public.CONTENTFUL_SPACE_ID,
-  accessToken: config.public.CONTENTFUL_ACCES_KEY,
-})
-
+// const contentfulClient = contentful.createClient({
+//   space: config.public.CONTENTFUL_SPACE_ID,
+//   accessToken: config.public.CONTENTFUL_ACCES_KEY,
+// })
+const { $contentfulClient } = useNuxtApp();
 
 const postDetails = usePostsStore().getAllPosts().find((post) => post.fields.slug === route.params.slug)
-const postContent = await contentfulClient.getEntries<ContentSkeleton>({ content_type: 'content', "fields.slug[match]": route.params.slug.toString() }) //route.params.slug.toString()
+const postContent = await $contentfulClient.getEntries<ContentSkeleton>({ content_type: 'content', "fields.slug[match]": route.params.slug.toString() }) //route.params.slug.toString()
 console.log(postDetails)
 const { title, author, category, dateOfPosting, featuredImage, slug } = postDetails?.fields
 const { fullPost, postId } = postContent.items[0].fields;

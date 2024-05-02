@@ -1,13 +1,20 @@
 // plugins/contentful.js
-import * as contentful from "contentful";
+import pkg from "contentful";
+const { createClient } = pkg;
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(({ $config }) => {
+  console.log($config.public.CONTENTFUL_SPACE_ID);
+  console.log($config.public.CONTENTFUL_ACCES_KEY);
   const config = {
-    space: "bbbsu85qq7pj",
-    accessToken: "KGVlTF0t-AfMsE2-jVv6fwdTAsFMjavXqIgdx9go6NY",
+    space: $config.public.CONTENTFUL_SPACE_ID,
+    accessToken: $config.public.CONTENTFUL_ACCES_KEY,
   };
 
-  const client = contentful.createClient(config);
+  const client = createClient(config);
 
-  nuxtApp.provide("contentfulClient", client);
+  return {
+    provide: {
+      contentfulClient: client,
+    },
+  };
 });
