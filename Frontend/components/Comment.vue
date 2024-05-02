@@ -51,6 +51,8 @@ const props = defineProps<{
 }>();
 const userStore = useUserStore();
 
+console.log(props.comment.editable);
+
 const commentValue = ref("");
 const commentPlaceholder = `Reply to ${props.comment.name} ...`;
 const commentIdToReply = userStore.getCommentIdToReply();
