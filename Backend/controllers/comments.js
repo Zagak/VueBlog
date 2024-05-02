@@ -8,7 +8,7 @@ const addComment = async (req, res) => {
 
   const UserId = req.user.userId;
   const UserName = req.user.name;
-
+  console.log(text);
   if (text === "" || !text)
     throw new CustomError(StatusCodes.NO_CONTENT, "Comment cannot be empty");
 

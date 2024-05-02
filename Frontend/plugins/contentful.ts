@@ -4,8 +4,6 @@ const { createClient } = pkg;
 //import { createClient } from "contentful";
 
 export default defineNuxtPlugin(({ $config }) => {
-  console.log($config.public.CONTENTFUL_SPACE_ID);
-  console.log($config.public.CONTENTFUL_ACCES_KEY);
   const config = {
     space: $config.public.CONTENTFUL_SPACE_ID,
     accessToken: $config.public.CONTENTFUL_ACCES_KEY,
