@@ -71,7 +71,7 @@ const addNewComment = async () => {
     const newComment: IComment = await addComment(props.postId, commentValue.value, null)
     //newComment.editable = true;
     //newComment.deleted = false;
-    postComments.value.unshift(newComment);
+    //postComments.value.unshift(newComment);
     commentValue.value = "";
 
   }
