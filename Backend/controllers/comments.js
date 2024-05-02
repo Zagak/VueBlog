@@ -38,6 +38,7 @@ const addComment = async (req, res) => {
       CommentId: null,
     });
   }
+  newComment.editable = true;
 
   return res
     .status(StatusCodes.OK)
