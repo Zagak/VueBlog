@@ -1,7 +1,7 @@
 // plugins/contentful.js
-import pkg from "contentful";
-const { createClient } = pkg;
-//import { createClient } from "contentful";
+// import pkg from "contentful";
+// const { createClient } = pkg;
+import { createClient } from "contentful";
 
 export default defineNuxtPlugin(({ $config }) => {
   const config = {
