@@ -58,7 +58,7 @@ function renderNodes() {
 };
 
 const route = useRoute()
-const config = useRuntimeConfig()
+//const config = useRuntimeConfig()
 // const contentfulClient = contentful.createClient({
 //   space: config.public.CONTENTFUL_SPACE_ID,
 //   accessToken: config.public.CONTENTFUL_ACCES_KEY,

@@ -1,6 +1,7 @@
 // plugins/contentful.js
 import pkg from "contentful";
 const { createClient } = pkg;
+//import { createClient } from "contentful";
 
 export default defineNuxtPlugin(({ $config }) => {
   console.log($config.public.CONTENTFUL_SPACE_ID);
