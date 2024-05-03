@@ -68,7 +68,7 @@ onMounted(async () => {
 
 const addNewComment = async () => {
   try {
-    const newComment: IComment = await addComment(1, "merege daca hardcodez?", null)//(props.postId, commentValue.value, null)
+    const newComment: IComment = await addComment(props.postId, commentValue.value, null)
 
     postComments.value.unshift(newComment);
     commentValue.value = "";
