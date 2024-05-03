@@ -4,7 +4,13 @@ const Comment = db.comment;
 const { StatusCodes } = require("http-status-codes");
 
 const addComment = async (req, res) => {
-  console.log("adaugam commnet");
+  await Comment.create({
+    text: "Intru macar ???",
+    postId: 1,
+    UserId: 1,
+    CommentId: null,
+  });
+
   const { text, postId, CommentId } = req.body;
 
   const UserId = req.user.userId;

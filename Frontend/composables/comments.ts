@@ -69,17 +69,20 @@ export async function addComment(
   const accesToken = store.getAccesToken();
   const config = useRuntimeConfig();
 
-  const newComment: IComment = await $fetch("/api/comment", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accesToken}`, // Add the Authorization header
-    },
-    body: {
-      text: text,
-      postId: postId,
-      CommentId: CommentId,
-    },
-  });
+  const newComment: IComment = await $fetch(
+    `${config.public.SERVER_URI}/api/v1/comment`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accesToken}`, // Add the Authorization header
+      },
+      body: {
+        text: text,
+        postId: postId,
+        CommentId: CommentId,
+      },
+    }
+  );
 
   return newComment;
 }
