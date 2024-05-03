@@ -21,8 +21,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(
   cors({
-    mode: "no-cors",
-    //origin: process.env.CLIENT_URI, // Replace with the origin you want to allow
+    origin: process.env.CLIENT_URI, // Replace with the origin you want to allow
     credentials: true, // Set to true to allow credentials
   })
 );
