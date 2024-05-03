@@ -23,4 +23,8 @@ export default defineNuxtConfig({
   },
 
   modules: ["@nuxt/image", "@pinia/nuxt", "nuxt-log4nuxt"],
+  log4nuxt: {
+    isEnabled: true,
+    logLevel: "warn",
+  },
 });
