@@ -22,5 +22,5 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxt/image", "@pinia/nuxt"],
+  modules: ["@nuxt/image", "@pinia/nuxt", "nuxt-log4nuxt"],
 });

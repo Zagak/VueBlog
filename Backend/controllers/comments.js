@@ -39,7 +39,6 @@ const addComment = async (req, res) => {
     });
   }
   newComment.editable = true;
-  newComment.deleted = false;
 
   return res
     .status(StatusCodes.OK)

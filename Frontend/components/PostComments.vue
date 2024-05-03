@@ -48,7 +48,7 @@ const setAuthType = (type: string) => {
 
 const accesToken = ref<string | null>("");
 
-const getAccesToken = async () => {
+const getTheAccesToken = async () => {
   await getNewAccesToken();
 }
 
