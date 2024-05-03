@@ -105,7 +105,7 @@ const replyToComment = async () => {
   if (!props.comment.children) {
     props.comment.children = [];
   }
-
+  replyComment.editable = true;
   props.comment.children.unshift(replyComment);
   if (!props.comment.children[0].level) props.comment.children[0].level = props.comment.level + 1
   closeReply();

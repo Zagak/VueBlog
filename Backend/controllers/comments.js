@@ -4,13 +4,6 @@ const Comment = db.comment;
 const { StatusCodes } = require("http-status-codes");
 
 const addComment = async (req, res) => {
-  await Comment.create({
-    text: "Intru macar ???",
-    postId: 1,
-    UserId: 1,
-    CommentId: null,
-  });
-
   const { text, postId, CommentId } = req.body;
 
   const UserId = req.user.userId;
@@ -45,7 +38,6 @@ const addComment = async (req, res) => {
       CommentId: null,
     });
   }
-  newComment.editable = true;
 
   return res
     .status(StatusCodes.OK)
