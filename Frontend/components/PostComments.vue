@@ -69,9 +69,7 @@ onMounted(async () => {
 const addNewComment = async () => {
   try {
     const newComment: IComment = await addComment(props.postId, commentValue.value, null)
-    newComment.editable = true;
 
-    console.log(newComment.editable)
     postComments.value.unshift(newComment);
     commentValue.value = "";
 

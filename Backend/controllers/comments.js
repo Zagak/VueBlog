@@ -4,6 +4,7 @@ const Comment = db.comment;
 const { StatusCodes } = require("http-status-codes");
 
 const addComment = async (req, res) => {
+  console.log("adaugam commnet");
   const { text, postId, CommentId } = req.body;
 
   const UserId = req.user.userId;
