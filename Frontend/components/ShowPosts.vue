@@ -51,17 +51,12 @@ let posts: Entry<PostSkeleton>[] = store.getAllPosts();
 let pages: number;
 const selectedPage = ref(1);
 
-console.log(posts)
-onMounted(() => {
-  console.log(posts)
-})
 pages = Math.floor((posts.length / (props.numberOfElements + 1) + 1))
 
 const pagesPosts = computed(() => {
   return posts.slice((props.numberOfElements * (selectedPage.value - 1)), (props.numberOfElements * selectedPage.value));
 });
 
-//console.log(pagesPosts.value)
 const selectPage = (pageNumber: number) => {
   if (pageNumber <= 0 || pageNumber > pages) return
 

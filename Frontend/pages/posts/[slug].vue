@@ -67,7 +67,7 @@ const { $contentfulClient } = useNuxtApp();
 
 const postDetails = usePostsStore().getAllPosts().find((post) => post.fields.slug === route.params.slug)
 const postContent = await $contentfulClient.getEntries<ContentSkeleton>({ content_type: 'content', "fields.slug[match]": route.params.slug.toString() }) //route.params.slug.toString()
-console.log(postDetails)
+
 const { title, author, category, dateOfPosting, featuredImage, slug } = postDetails?.fields
 const { fullPost, postId } = postContent.items[0].fields;
 

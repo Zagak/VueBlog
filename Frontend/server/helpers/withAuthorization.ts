@@ -10,7 +10,6 @@ const withAuthorization = (handler: (event: H3Event) => Promise<any>) => {
       // Perform actions after the original handler
       return result;
     } catch (error) {
-      console.log(error.status);
       if (error.status === 401) {
         //return await $fetch("/auth/token");
         const newAccesToken = await $fetch(
@@ -21,10 +20,8 @@ const withAuthorization = (handler: (event: H3Event) => Promise<any>) => {
             //headers: useRequestHeaders(["cookie"]),
           }
         );
-        console.log("am obtinut token");
         return newAccesToken;
       }
-      console.log(error);
       // Handle the error appropriately
     }
   });

@@ -19,11 +19,11 @@ const xss = require("xss-clean");
 
 server.use(
   cors({
-    origin: process.env.CLIENT_URI, // Replace with the origin you want to allow
-    credentials: true, // Set to true to allow credentials
+    origin: process.env.CLIENT_URI,
+    credentials: true,
   })
 );
-console.log("CORS Origin:", process.env.CLIENT_URI);
+
 server.use(express.json());
 server.use(helmet());
 server.use(xss());

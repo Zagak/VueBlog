@@ -60,7 +60,6 @@ const token = async (req, res) => {
   //   throw new CustomError(StatusCodes.UNAUTHORIZED, "Authentication invalid");
   // }
   //const refreshToken = authHeader.split(" ")[1];
-  console.log();
   const refreshToken = req.cookies["refreshToken"];
 
   console.log(refreshToken);

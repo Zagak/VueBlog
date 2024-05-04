@@ -53,7 +53,6 @@ const getTheAccesToken = async () => {
 }
 
 const getAllComments = async () => {
-  console.log("Comments displayed")
   accesToken.value = userStore.getAccesToken();
   try {
     postComments.value = await showComments(props.postId);

@@ -8,7 +8,7 @@ const addComment = async (req, res) => {
 
   const UserId = req.user.userId;
   const UserName = req.user.name;
-  console.log(text);
+
   if (text === "" || !text)
     throw new CustomError(StatusCodes.NO_CONTENT, "Comment cannot be empty");
 
@@ -137,7 +137,6 @@ const updateComment = async (req, res) => {
 };
 
 const deleteComment = async (req, res) => {
-  console.log("s a apelat delete");
   const { userId } = req.user;
 
   const { id } = req.params;
@@ -164,9 +163,7 @@ const deleteComment = async (req, res) => {
           id: CommentId,
         },
       });
-      console.log(parentOfComment.id);
       if (parentOfComment.deleted === true) {
-        console.log("ma eu intru ?");
         await Comment.destroy({ where: { id: parentOfComment.id } });
       }
     }

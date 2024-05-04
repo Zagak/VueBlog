@@ -26,10 +26,16 @@
     }
   },
   "production": {
-    "username": "postgres",
-    "password": "admin",
-    "database": "postgres",
-    "host": "localhost",
-    "dialect": "postgres"
+    "username": "u2dlqq7pg0mc1f",
+    "database": "d19mnhq987tho2",
+    "host": "c2dr1dq7r4d57i.cluster-czz5s0kz4scl.eu-west-1.rds.amazonaws.com",
+    "dialect": "postgres",
+    "port":5432,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }

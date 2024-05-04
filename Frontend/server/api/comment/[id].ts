@@ -45,10 +45,8 @@ const commentHandler = async (
 ): Promise<void> => {
   if (event.node.req.method === "PATCH") {
     await editCommentHandler(event);
-    console.log("editam");
   } else if (event.node.req.method === "DELETE") {
     await deleteCommentHandler(event);
-    console.log("stergem");
   }
 };
 

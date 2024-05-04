@@ -57,7 +57,6 @@ const submitForm = async () => {
   if (props.authType === "logIn") {
     await logInUser(form.email, form.password);
     emit("user-authenticated");
-    console.log("event emmited")
   } else if (props.authType === "register") {
     await registerUser(form.name, form.email, form.password);
     emit("user-authenticated");

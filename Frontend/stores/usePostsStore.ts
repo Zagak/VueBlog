@@ -8,8 +8,7 @@ export const usePostsStore = defineStore("posts", () => {
 
   const fetchPosts = async (client: ContentfulClientApi<undefined>) => {
     const config = useRuntimeConfig();
-    //client: ContentfulClientApi<undefined>
-    console.log("facem rost de posts");
+
     if (posts.length !== 0) return;
 
     const res = await client.getEntries<PostSkeleton>({

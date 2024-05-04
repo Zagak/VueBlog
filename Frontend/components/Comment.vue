@@ -51,8 +51,6 @@ const props = defineProps<{
 }>();
 const userStore = useUserStore();
 
-console.log(props.comment.editable);
-
 const commentValue = ref("");
 const commentPlaceholder = `Reply to ${props.comment.name} ...`;
 const commentIdToReply = userStore.getCommentIdToReply();
@@ -61,13 +59,11 @@ const commentIdToEdit = userStore.getCommentIdToEdit();
 const openEditBox = () => {
   userStore.setCommentIdToEdit(props.comment.id)
   commentValue.value = props.comment.text;
-  console.log(props.comment.id)
 }
 
 const openReplyBox = () => {
   userStore.setCommentIdToReply(props.comment.id);
   commentValue.value = "";
-  console.log(props.comment.id)
 }
 
 const closeEdit = () => {
